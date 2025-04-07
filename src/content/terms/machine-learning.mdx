@@ -1,0 +1,59 @@
+---
+title: "Machine Learning"
+description: "En gren af kunstig intelligens der giver computere evnen til at lære fra data og forbedre sig selv uden at være eksplicit programmeret."
+tags: ["ai", "data-science", "algorithms", "advanced"]
+datePublished: 2023-07-30
+---
+
+## What is Machine Learning?
+
+Machine Learning (ML) is a subset of artificial intelligence that enables computers to learn from data and improve their performance on a specific task over time without being explicitly programmed. Instead of writing specific rules, developers provide the algorithm with data, allowing it to discover patterns and make predictions or decisions.
+
+## Simple Analogy
+
+Think of machine learning like teaching a child to identify fruits:
+
+- **Traditional Programming (Rule-Based)**: You give the child specific, explicit rules like "if it's round, red, and has a stem, it's an apple" and "if it's yellow with a curved shape, it's a banana." This works for simple cases, but it's difficult to create rules for every possible fruit variation.
+
+- **Machine Learning**: Instead, you show the child hundreds of examples of different fruits, labeled with their names. The child learns to recognize patterns and features (color, shape, texture) that distinguish each fruit. When shown a new fruit, the child uses this learned knowledge to make an educated guess.
+
+If the child makes a mistake, you correct them, and they adjust their understanding—this is similar to how machine learning models are trained, tested, and refined. Over time, both the child and the ML model get better at the task without memorizing explicit rules.
+
+## Key Concepts
+
+- **Training Data**: The examples used to teach the model
+- **Features**: The characteristics or attributes that the model uses to make predictions
+- **Supervised Learning**: Learning from labeled examples (with correct answers)
+- **Unsupervised Learning**: Finding patterns in unlabeled data
+- **Reinforcement Learning**: Learning through trial, error, and rewards
+- **Overfitting**: When a model learns the training data too well, including its noise and outliers
+- **Neural Networks**: ML models inspired by the human brain's structure
+
+## Example
+
+```python
+# A simple machine learning example using scikit-learn
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+import pandas as pd
+
+# Load data (e.g., iris flower dataset)
+data = pd.read_csv('iris.csv')
+X = data.drop('species', axis=1)  # Features
+y = data['species']               # Target labels
+
+# Split data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+# Create and train the model
+model = RandomForestClassifier(n_estimators=100)
+model.fit(X_train, y_train)
+
+# Make predictions
+predictions = model.predict(X_test)
+
+# Evaluate the model
+accuracy = accuracy_score(y_test, predictions)
+print(f"Model accuracy: {accuracy * 100:.2f}%")
+``` 

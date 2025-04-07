@@ -1,0 +1,46 @@
+---
+title: "GraphQL"
+description: "A query language for APIs and a runtime for executing those queries, allowing clients to request exactly the data they need."
+tags: ["api", "backend", "query", "advanced"]
+datePublished: 2023-07-26
+---
+
+## What is GraphQL?
+
+GraphQL is a query language for APIs and a runtime environment for executing those queries against your data. Unlike traditional REST APIs, where each endpoint returns a fixed data structure, GraphQL allows clients to specify exactly what data they need, making it possible to get all required data in a single request.
+
+## Simple Analogy
+
+Imagine ordering at a restaurant:
+
+- With a **REST API**, you'd order from a fixed menu. If you want a burger, you get the complete burger as the chef designed it. If you don't want pickles, too bad—you get them anyway and have to remove them yourself. If you want fries too, you need to place a separate order.
+
+- With **GraphQL**, you're at a custom sandwich shop. You tell the server exactly what you want on your sandwich: "I want bread, lettuce, tomato, but no onions, plus a side of fries." You get precisely what you asked for—nothing more, nothing less—all in one order.
+
+## Key Concepts
+
+- **Schema**: Defines what queries are available and what types of data can be fetched
+- **Queries**: Requests to fetch data (similar to GET in REST)
+- **Mutations**: Operations that change data (similar to POST, PUT, DELETE in REST)
+- **Resolvers**: Functions that determine how to fetch the data for a specific field
+- **Single Endpoint**: Unlike REST with multiple endpoints, GraphQL typically uses a single endpoint
+- **No Over-fetching/Under-fetching**: Clients receive exactly what they request, no more, no less
+
+## Example
+
+```graphql
+# A GraphQL query to fetch a user and their posts
+query {
+  user(id: "123") {
+    name
+    email
+    posts {
+      title
+      content
+      createdAt
+    }
+  }
+}
+```
+
+With REST, this might require multiple requests to different endpoints like `/users/123`, `/users/123/posts`, etc. 

@@ -1,0 +1,103 @@
+---
+title: "DNS"
+description: "Domain Name System er den teknologi der oversætter brugervenlige domænenavne til IP-adresser som computere bruger til at identificere hinanden på internettet."
+tags: ["networking", "internet", "infrastructure", "fundamentals"]
+datePublished: 2023-08-12
+---
+
+## What is DNS?
+
+The Domain Name System (DNS) is the internet's phonebook. It's a hierarchical, decentralized naming system that translates human-readable domain names (like www.example.com) into machine-readable IP addresses (like 192.0.2.1) that computers use to identify each other on the network. DNS is essential because while domain names are easy for people to remember, computers access websites based on IP addresses.
+
+## Simple Analogy
+
+Think of DNS like a postal service's address lookup and mail delivery system:
+
+- **Domain Names vs. IP Addresses**: Like the difference between saying "The White House, Washington D.C." (domain name) versus "1600 Pennsylvania Avenue NW, Washington, D.C. 20500" (IP address). The first is memorable and human-friendly, while the second is precise but harder to remember.
+
+- **DNS Resolution Process**: Similar to how mail gets delivered:
+
+  1. **You (Browser)**: Want to send a letter to your friend, but only know them as "John Smith who lives in New York" (example.com)
+  
+  2. **Local DNS Resolver (Your Local Post Office)**: Has a small address book (cache) of people you frequently write to. If John's address isn't there, they ask:
+  
+  3. **Root DNS Server (Main Postal Headquarters)**: Doesn't know John's exact address, but knows which regional office handles New York addresses, so directs you there:
+  
+  4. **TLD DNS Server (New York Regional Postal Office)**: Knows which district office handles the specific neighborhood John lives in:
+  
+  5. **Authoritative DNS Server (Local New York District Office)**: Has the exact street address for John Smith (192.0.2.1)
+  
+  6. **Your Local Post Office**: Writes this address in their book for future reference
+  
+  7. **Letter Delivery (Data Transfer)**: Now that the address is known, your letter can be delivered directly
+
+- **DNS Caching**: Like your post office keeping a notebook of addresses you've previously looked up, so they don't need to check with headquarters every time.
+
+- **DNS Propagation**: Similar to when someone moves and updates their address. The change is registered at their local post office first, but it takes time for all post offices worldwide to update their records.
+
+Just as the postal system makes it possible to send mail without knowing exact coordinates, DNS makes it possible to access websites with simple, memorable names instead of complicated number sequences.
+
+## Key Concepts
+
+- **Domain Name**: The human-readable address (like example.com)
+- **IP Address**: The machine-readable numerical address (like 192.0.2.1)
+- **DNS Resolution**: The process of converting a domain name to an IP address
+- **DNS Records**: Different types of information stored in the DNS:
+  - **A Record**: Maps a domain name to an IPv4 address
+  - **AAAA Record**: Maps a domain name to an IPv6 address
+  - **CNAME Record**: Creates an alias from one domain to another
+  - **MX Record**: Specifies mail servers for the domain
+  - **TXT Record**: Stores text information (often used for verification)
+- **DNS Hierarchy**: The tree-like structure of DNS (root, TLD, domain, subdomain)
+- **DNS Caching**: Temporarily storing DNS lookups to improve performance
+- **TTL (Time To Live)**: How long a DNS record should be cached before requesting fresh information
+- **DNS Propagation**: The time it takes for DNS changes to spread across all DNS servers
+
+## Example
+
+```bash
+# Using the 'dig' command to perform a DNS lookup
+$ dig example.com
+
+; <<>> DiG 9.16.1 <<>> example.com
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 48234
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4096
+;; QUESTION SECTION:
+;example.com.                   IN      A
+
+;; ANSWER SECTION:
+example.com.            86400   IN      A       93.184.216.34
+
+;; Query time: 28 msec
+;; SERVER: 8.8.8.8#53(8.8.8.8)
+;; WHEN: Thu Aug 12 12:00:00 UTC 2023
+;; MSG SIZE  rcvd: 56
+```
+
+```javascript
+// Simple DNS resolution in Node.js
+const dns = require('dns');
+
+// Resolve a domain name to an IP address
+dns.resolve4('example.com', (err, addresses) => {
+  if (err) throw err;
+  
+  console.log(`IP addresses for example.com: ${addresses}`);
+  
+  // Reverse lookup: get domain name from IP
+  addresses.forEach((ip) => {
+    dns.reverse(ip, (err, hostnames) => {
+      if (err) {
+        console.log(`Reverse lookup for ${ip} failed: ${err.message}`);
+        return;
+      }
+      console.log(`Reverse lookup for ${ip}: ${hostnames}`);
+    });
+  });
+});
+``` 

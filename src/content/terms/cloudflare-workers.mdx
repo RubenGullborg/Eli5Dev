@@ -1,0 +1,91 @@
+---
+title: "Cloudflare Workers"
+description: "En serverless compute platform der kører kode tæt på brugerne på Cloudflares globale netværk af datacentre."
+tags: ["serverless", "edge-computing", "cloud", "performance"]
+datePublished: 2023-08-09
+---
+
+## What is Cloudflare Workers?
+
+Cloudflare Workers is a serverless execution environment that allows developers to create applications that run on Cloudflare's edge network—a global network of data centers located in over 200 cities worldwide. Instead of running code on a centralized server, Workers execute code at the network edge, physically closer to the user, resulting in significantly lower latency and faster response times.
+
+## Simple Analogy
+
+Think of Cloudflare Workers like a global network of local translators:
+
+- **Traditional Server Setup**: Like having a single language translator in New York who handles all translation requests worldwide. If someone in Tokyo needs a document translated, they must send it all the way to New York and wait for the translated version to be sent back—a slow process with lots of travel time.
+
+- **Cloudflare Workers**: Like having identical translators stationed in every major city around the world. When someone in Tokyo needs a translation, they simply visit the local translator in Tokyo. When someone in London needs a translation, they visit the local translator in London.
+
+Each translator (Worker) has:
+- The same skills and abilities (your code)
+- Access to the same reference materials (your data)
+- The ability to communicate with other translators when needed (API calls)
+
+But most importantly, by being physically close to the users they serve, these translators can:
+- Respond much faster (lower latency)
+- Handle requests even if the central office in New York loses power (higher availability)
+- Reduce the strain on international mail services (reduced origin server load)
+- Adapt to local needs when appropriate (geo-specific logic)
+
+Just as it doesn't make sense to send a document across the world for translation when an identical translator is available locally, it doesn't make sense to process every web request at a far-away data center when the same code can run closer to the user.
+
+## Key Concepts
+
+- **Edge Computing**: Running code closer to users instead of in a centralized location
+- **Serverless**: No need to manage servers; code is deployed directly to the platform
+- **Global Deployment**: Automatic distribution of code to all edge locations
+- **V8 Isolation**: Each execution is isolated for security and performance
+- **Key-Value Storage**: Built-in data storage for Workers
+- **Service Workers API**: The programming model based on web standards
+- **Low Latency**: Significantly reduced response times due to proximity to users
+- **High Availability**: Distributed nature provides resistance to regional outages
+
+## Example
+
+```javascript
+// A simple Cloudflare Worker that customizes content based on user location
+
+addEventListener('fetch', event => {
+  event.respondWith(handleRequest(event.request));
+});
+
+async function handleRequest(request) {
+  // Get user's country from the request
+  const country = request.headers.get('CF-IPCountry');
+  
+  // Customize greeting based on country
+  let greeting;
+  switch(country) {
+    case 'DK':
+      greeting = 'Hej verden!';
+      break;
+    case 'FR':
+      greeting = 'Bonjour le monde!';
+      break;
+    case 'JP':
+      greeting = 'こんにちは世界!';
+      break;
+    default:
+      greeting = 'Hello World!';
+  }
+  
+  // Create and return a custom response
+  return new Response(`
+    <html>
+      <head>
+        <title>Edge Greeting</title>
+      </head>
+      <body>
+        <h1>${greeting}</h1>
+        <p>This response was generated at the edge location nearest to you.</p>
+        <p>Your country: ${country}</p>
+      </body>
+    </html>
+  `, {
+    headers: {
+      'content-type': 'text/html;charset=UTF-8',
+    },
+  });
+}
+``` 

@@ -1,0 +1,63 @@
+---
+title: "REST API"
+description: "Et arkitektonisk princip for webtjenester der definerer hvordan systemer kan kommunikere via HTTP med standardiserede operationer."
+tags: ["api", "web", "backend", "http"]
+datePublished: 2023-07-28
+---
+
+## What is REST API?
+
+REST (Representational State Transfer) is an architectural style for designing networked applications. A REST API (Application Programming Interface) allows different systems to communicate over HTTP using standard operations (GET, POST, PUT, DELETE) on resources identified by URLs.
+
+## Simple Analogy
+
+Think of a REST API like a restaurant with a well-organized system:
+
+- **Menu (API Documentation)**: Lists all available dishes (endpoints) with descriptions
+- **Waiter (API)**: Takes your order and communicates with the kitchen
+- **Order Form (Request)**: How you specify what you want
+  - Dish selection (URL/endpoint) - e.g., `/meals/pasta`
+  - Special instructions (parameters) - e.g., "extra cheese"
+  - Type of order (HTTP method):
+    - **Viewing the menu (GET)**: Just retrieving information without changing anything
+    - **Placing a new order (POST)**: Creating something new
+    - **Modifying your order (PUT/PATCH)**: Changing something that exists
+    - **Canceling your order (DELETE)**: Removing something
+- **Food delivery (Response)**: What comes back after your order is processed
+
+Just as a restaurant has standard procedures for ordering, serving, and paying, REST APIs have standardized ways to request and receive data, making it predictable and easy to use regardless of which "restaurant" (API) you're accessing.
+
+## Key Concepts
+
+- **Resources**: Objects or data accessed via URLs (e.g., `/users`, `/products/123`)
+- **HTTP Methods**: Standard operations on resources
+  - GET: Retrieve a resource
+  - POST: Create a new resource
+  - PUT/PATCH: Update an existing resource
+  - DELETE: Remove a resource
+- **Statelessness**: Each request contains all information needed to process it
+- **Representation**: Resources can be represented in different formats (JSON, XML, etc.)
+- **Status Codes**: Standardized responses indicating success or failure (200 OK, 404 Not Found, etc.)
+
+## Example
+
+```javascript
+// Making a GET request to retrieve user data
+fetch('https://api.example.com/users/123')
+  .then(response => response.json())
+  .then(userData => console.log(userData));
+
+// Making a POST request to create a new user
+fetch('https://api.example.com/users', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    name: 'John Doe',
+    email: 'john@example.com'
+  })
+})
+  .then(response => response.json())
+  .then(newUser => console.log(newUser));
+``` 

@@ -1,0 +1,100 @@
+---
+title: "Web Accessibility"
+description: "Praksis der sikrer at websteder og applikationer kan bruges af alle mennesker, uanset deres evner eller handicap."
+tags: ["frontend", "ux", "best-practices", "inclusive-design"]
+datePublished: 2023-08-07
+---
+
+## What is Web Accessibility?
+
+Web Accessibility (often abbreviated as a11y) refers to the practice of designing and developing websites and applications that can be used by everyone, regardless of disabilities or impairments. It aims to remove barriers that might prevent people with visual, auditory, motor, or cognitive disabilities from interacting with or accessing web content effectively.
+
+## Simple Analogy
+
+Think of web accessibility like designing a building:
+
+- **Inaccessible Website**: Like a building with only stairs at the entrance, narrow doorways, and high shelves. It works perfectly for many people, but completely excludes others who use wheelchairs, have limited mobility, or are shorter in height.
+
+- **Accessible Website**: Like a thoughtfully designed building with:
+  - Both stairs and ramps at entrances (multiple ways to navigate)
+  - Elevators with audible announcements and braille buttons (screen reader support)
+  - Wider doorways and clear pathways (simple, uncluttered layouts)
+  - Handles that can be operated with a closed fist (keyboard navigation)
+  - Signs with large, high-contrast text and braille (proper text contrast and size)
+  - Emergency information conveyed through both visual and audible means (multiple sensory channels)
+
+Just as building codes and regulations ensure physical spaces are usable by everyone, web accessibility standards like WCAG (Web Content Accessibility Guidelines) provide guidelines to make digital spaces inclusive. And like accessible architecture, making a website accessible often improves the experience for all users, not just those with disabilities.
+
+## Key Concepts
+
+- **Perceivable**: Information must be presentable in ways all users can perceive
+- **Operable**: User interface components must be navigable by all users
+- **Understandable**: Information and interface operation must be understandable
+- **Robust**: Content must be robust enough to work with various user agents and assistive technologies
+- **Alternative Text**: Descriptions for images for screen reader users
+- **Keyboard Navigation**: Ability to use all features without a mouse
+- **Color Contrast**: Sufficient difference between text and background colors
+- **Screen Reader Compatibility**: Proper semantic markup to support assistive technologies
+- **ARIA (Accessible Rich Internet Applications)**: Attributes to enhance accessibility of dynamic content
+
+## Example
+
+```html
+<!-- Bad Example (Inaccessible) -->
+<div class="button" style="background: green; color: darkgreen;" onclick="submitForm()">
+  <img src="submit-icon.png"> SUBMIT
+</div>
+
+<!-- Good Example (Accessible) -->
+<button 
+  type="submit" 
+  class="submit-button" 
+  aria-label="Submit form"
+>
+  <img src="submit-icon.png" alt="" aria-hidden="true">
+  <span>Submit</span>
+</button>
+
+<style>
+  .submit-button {
+    background-color: #008000;
+    color: #ffffff; /* High contrast between text and background */
+    padding: 12px 20px;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  
+  /* Focus state for keyboard navigation */
+  .submit-button:focus {
+    outline: 3px solid #0066cc;
+    outline-offset: 2px;
+  }
+  
+  /* Ensure click target is large enough */
+  .submit-button {
+    min-width: 44px;
+    min-height: 44px;
+  }
+</style>
+
+<!-- Accessible form with proper labels -->
+<form>
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input 
+      type="text" 
+      id="name" 
+      name="name" 
+      aria-required="true"
+      aria-describedby="name-error"
+    >
+    <div id="name-error" class="error-message" role="alert"></div>
+  </div>
+  
+  <!-- Skip navigation link for keyboard users -->
+  <a href="#main-content" class="skip-link">
+    Skip to main content
+  </a>
+</form>
+``` 

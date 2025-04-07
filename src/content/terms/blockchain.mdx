@@ -1,0 +1,100 @@
+---
+title: "Blockchain"
+description: "En distribueret, uforanderlig database teknologi der sikrer gennemsigtighed og sikkerhed gennem kryptografi og decentralisering."
+tags: ["cryptocurrency", "distributed-systems", "security", "advanced"]
+datePublished: 2023-08-01
+---
+
+## What is Blockchain?
+
+Blockchain is a distributed, decentralized ledger technology that records transactions across many computers in a way that makes the records resistant to modification. Each block contains a list of transactions and a reference to the previous block, forming a chain of blocks that cannot be altered without changing all subsequent blocks and gaining consensus from the network.
+
+## Simple Analogy
+
+Think of blockchain like a physical ledger book with special properties:
+
+- **Traditional Ledger**: In a traditional system, a single accountant might keep a financial ledger. If they make a mistake or deliberately change an entry, it can be hard to detect.
+
+- **Blockchain Ledger**: Imagine instead that:
+  1. Hundreds of people have identical copies of the ledger book
+  2. Each page (block) contains transactions and a special stamp that includes the pattern from the previous page
+  3. Every 10 minutes, a new page is created with new transactions
+  4. Everyone compares their copies to ensure they're identical
+  5. To change an old entry, you would need to:
+     - Alter that page
+     - Recreate the special stamp pattern
+     - Change all subsequent pages and their stamps
+     - Replace the majority of books in circulation without anyone noticing
+
+This is practically impossible, making the blockchain extremely secure against tampering. Just as you can't change page 5 of a 100-page book without affecting pages 6-100, you can't alter a block in the blockchain without breaking the entire chain.
+
+## Key Concepts
+
+- **Distributed Ledger**: A synchronized database spread across multiple sites
+- **Blocks**: Packages of data that contain transactions and a hash of the previous block
+- **Hash**: A unique digital fingerprint that verifies block integrity
+- **Consensus Mechanism**: How the network agrees on which blocks to add (e.g., Proof of Work, Proof of Stake)
+- **Decentralization**: No single entity controls the entire network
+- **Immutability**: Once recorded, data cannot be altered without network consensus
+- **Public/Private Keys**: Cryptographic keys that secure transactions and prove ownership
+- **Smart Contracts**: Self-executing agreements with terms written in code
+
+## Example
+
+```javascript
+// Simplified example of a basic blockchain implementation
+class Block {
+  constructor(index, timestamp, data, previousHash = '') {
+    this.index = index;
+    this.timestamp = timestamp;
+    this.data = data;
+    this.previousHash = previousHash;
+    this.hash = this.calculateHash();
+  }
+
+  calculateHash() {
+    return SHA256(
+      this.index + 
+      this.previousHash + 
+      this.timestamp + 
+      JSON.stringify(this.data)
+    ).toString();
+  }
+}
+
+class Blockchain {
+  constructor() {
+    this.chain = [this.createGenesisBlock()];
+  }
+
+  createGenesisBlock() {
+    return new Block(0, "01/01/2023", "Genesis Block", "0");
+  }
+
+  getLatestBlock() {
+    return this.chain[this.chain.length - 1];
+  }
+
+  addBlock(newBlock) {
+    newBlock.previousHash = this.getLatestBlock().hash;
+    newBlock.hash = newBlock.calculateHash();
+    this.chain.push(newBlock);
+  }
+
+  isChainValid() {
+    for (let i = 1; i < this.chain.length; i++) {
+      const currentBlock = this.chain[i];
+      const previousBlock = this.chain[i - 1];
+
+      if (currentBlock.hash !== currentBlock.calculateHash()) {
+        return false;
+      }
+
+      if (currentBlock.previousHash !== previousBlock.hash) {
+        return false;
+      }
+    }
+    return true;
+  }
+}
+``` 

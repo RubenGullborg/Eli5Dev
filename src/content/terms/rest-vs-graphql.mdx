@@ -1,0 +1,155 @@
+---
+title: "REST vs. GraphQL"
+description: "En sammenligning af to forskellige tilgange til API-design: REST's ressourcebaserede model og GraphQL's fleksible spørgebaserede løsning."
+tags: ["api", "web", "backend", "architecture"]
+datePublished: 2023-08-17
+---
+
+## What are REST and GraphQL?
+
+REST (Representational State Transfer) and GraphQL are two different architectural styles for designing APIs (Application Programming Interfaces). REST is a resource-based architecture that uses standard HTTP methods and endpoints to manipulate data, while GraphQL is a query language for APIs that allows clients to request exactly the data they need, regardless of how it's stored on the server.
+
+## Simple Analogy
+
+Think of REST and GraphQL as two different restaurant experiences:
+
+### REST API: The Fixed Menu Restaurant
+
+Dining at a REST restaurant is like ordering from a traditional fixed menu:
+
+- You are given a menu with specific sections (endpoints): appetizers, entrees, desserts, drinks (/users, /posts, /comments)
+- Each section has specific items you can order (resources)
+- You place separate orders for each item you want (individual API calls)
+- The kitchen (server) determines what goes on each plate and how it's prepared
+- If you want a main dish, side dish, and drink, you need to place three separate orders
+- If you only want the tomatoes from a salad, you still get the entire salad and need to pick them out yourself
+
+For example, if you want to know about a user and their recent posts:
+1. Order the user information from the `/users/123` section
+2. Look at the response to see that they have posts
+3. Place a separate order to `/users/123/posts` to get those posts
+4. Maybe make more requests to get comments on those posts
+
+### GraphQL API: The Custom Order Restaurant
+
+Dining at a GraphQL restaurant is like visiting a build-your-own-meal restaurant:
+
+- You get a form with all available ingredients and components (schema)
+- You fill out exactly what you want on a single order form (query)
+- You can request a main dish with specific sides, drinks, and desserts all in one order
+- You can specify exactly which parts of each item you want (e.g., "burger with lettuce and tomato, no onions, with a side of fries but no salt")
+- The kitchen prepares exactly what you asked for, nothing more and nothing less
+- Your entire meal arrives on one tray, organized as requested
+
+For the same user-with-posts example:
+1. Write a single order that specifies the user, just the user fields you need, their posts, and just the post fields you need
+2. Get back exactly that data in a single response
+
+### Key Differences Illustrated:
+
+- **Fetching Related Data**:
+  - **REST**: Like ordering an entrée and then having to place separate orders for each side dish. Multiple trips for the waiter, multiple waiting periods for you.
+  - **GraphQL**: Like ordering "chicken with rice and vegetables, hold the sauce" all at once.
+
+- **Over-fetching**:
+  - **REST**: Like ordering a hamburger and automatically getting pickles, lettuce, tomato, and onions, even if you only wanted the patty and bun.
+  - **GraphQL**: Like specifying exactly what toppings you want on your burger.
+
+- **Under-fetching**:
+  - **REST**: Like having to place separate orders for your main dish, then your side, then your drink because they come from different kitchen stations.
+  - **GraphQL**: Like ordering your complete meal at once.
+
+- **Versioning**:
+  - **REST**: Like the restaurant printing entirely new menus when they add or change dishes.
+  - **GraphQL**: Like a restaurant that keeps the same customizable order form but adds new options to choose from.
+
+- **Discoverability**:
+  - **REST**: Like a well-organized menu with clear sections and descriptions.
+  - **GraphQL**: Like having access to the restaurant's entire ingredient list and cooking methods, which gives more flexibility but requires more knowledge to use effectively.
+
+## Key Concepts
+
+### REST
+- **Resources**: Data entities accessible via unique URLs (endpoints)
+- **HTTP Methods**: GET, POST, PUT, DELETE correspond to read, create, update, delete operations
+- **Statelessness**: Each request from client to server must contain all information needed to understand and process the request
+- **Multiple Endpoints**: Different URLs for different resources
+- **Fixed Response Structure**: Server determines what data is returned for each endpoint
+- **Status Codes**: Uses standard HTTP status codes to indicate success/failure
+
+### GraphQL
+- **Single Endpoint**: Usually just one URL for all requests
+- **Schema**: Defines all available data types and relationships
+- **Queries**: Request specific data
+- **Mutations**: Modify data
+- **Resolvers**: Functions that determine how fields are retrieved
+- **Client-Specified Responses**: Client determines exactly what data they want
+- **Introspection**: API can be queried for its own schema
+
+## Example
+
+```javascript
+// REST vs GraphQL comparison
+
+// REST: Multiple endpoints, multiple requests
+// 1. Get user data
+fetch('/api/users/123')
+  .then(res => res.json())
+  .then(user => {
+    console.log('User:', user.name);
+    
+    // 2. Separate request for posts
+    return fetch(`/api/users/${user.id}/posts`);
+  })
+  .then(res => res.json())
+  .then(posts => {
+    console.log('Posts:', posts.length);
+    
+    // 3. Separate request for each post's comments
+    const commentPromises = posts.map(post => 
+      fetch(`/api/posts/${post.id}/comments`).then(res => res.json())
+    );
+    
+    return Promise.all(commentPromises);
+  })
+  .then(commentsArrays => {
+    const totalComments = commentsArrays.reduce((total, comments) => 
+      total + comments.length, 0
+    );
+    console.log('Total comments:', totalComments);
+  });
+
+// GraphQL: Single endpoint, precise request
+fetch('/graphql', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    query: `
+      query {
+        user(id: "123") {
+          id
+          name
+          posts {
+            id
+            title
+            comments {
+              id
+              text
+            }
+          }
+        }
+      }
+    `
+  })
+})
+  .then(res => res.json())
+  .then(result => {
+    console.log('User:', result.data.user.name);
+    console.log('Posts:', result.data.user.posts.length);
+    
+    const totalComments = result.data.user.posts.reduce((total, post) => 
+      total + post.comments.length, 0
+    );
+    console.log('Total comments:', totalComments);
+  });
+``` 

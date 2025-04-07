@@ -1,0 +1,117 @@
+---
+title: "Progressive Web App"
+description: "A web application that uses modern web capabilities to deliver an app-like experience to users"
+tags: ["web", "frontend", "mobile", "performance"]
+datePublished: 2023-08-06
+---
+
+## What is a Progressive Web App?
+
+A Progressive Web App (PWA) is a web application that uses modern web capabilities to deliver an app-like experience to users. PWAs combine the best features of the web and native apps: they're discoverable via search engines, can be installed on home screens without app stores, work offline, and can send push notifications, all while maintaining the universal accessibility of websites.
+
+## Simple Analogy
+
+Think of a Progressive Web App like a chameleon vehicle:
+
+- **Traditional Website**: Like a train that runs on fixed tracks. It's accessible to anyone near the tracks, but requires a constant connection to the rails (internet), can't operate offline, and has a fixed interface regardless of context.
+
+- **Native Mobile App**: Like a specialized off-road vehicle. It's powerful, fast, and designed specifically for the terrain (device) it runs on, but you need to visit a specific dealership (app store) to get it, and it's only designed for one type of terrain (operating system).
+
+- **Progressive Web App**: Like a chameleon vehicle that adapts to its environment:
+  - It starts as a regular car on the road (website in browser)
+  - Over time, it gains more abilities: grows tank treads for off-road (works offline), gets storage compartments (saves data locally), can be parked in your garage for quick access (installed on home screen)
+  - It can drive on almost any road or terrain (cross-platform compatibility)
+  - It sends you alerts when important events happen (push notifications)
+  - It doesn't require visiting a special dealership - you can just drive it off the normal road into your garage (direct installation)
+
+Just as the chameleon vehicle gives you the convenience of a car with many capabilities of specialized vehicles, a PWA gives you the accessibility of a website with many capabilities of native apps.
+
+## Key Concepts
+
+- **Service Workers**: JavaScript files that act as proxy servers between the web app, browser, and network, enabling offline functionality
+- **Web App Manifest**: JSON file with metadata about the app (name, icons, colors) for installation
+- **Responsive Design**: Adapting the user interface to different screen sizes and devices
+- **App Shell Architecture**: Loading the essential UI first for faster perceived performance
+- **Push Notifications**: Alerting users to new content even when the browser is closed
+- **Offline Support**: Functioning without an internet connection using cached resources
+- **Installation**: Adding to home screen without an app store
+- **HTTPS**: Secure connections required for PWAs
+
+## Example
+
+```html
+<!-- Web App Manifest link in HTML -->
+<link rel="manifest" href="/manifest.json">
+
+<!-- Example manifest.json -->
+```
+
+```json
+{
+  "name": "My Progressive Web App",
+  "short_name": "MyPWA",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0078d7",
+  "icons": [
+    {
+      "src": "images/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "images/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
+```
+
+```javascript
+// Registering a service worker for offline capabilities
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js')
+      .then(registration => {
+        console.log('Service Worker registered successfully:', registration);
+      })
+      .catch(error => {
+        console.log('Service Worker registration failed:', error);
+      });
+  });
+}
+
+// Example service-worker.js
+const CACHE_NAME = 'pwa-cache-v1';
+const urlsToCache = [
+  '/',
+  '/styles/main.css',
+  '/scripts/main.js',
+  '/images/logo.png'
+];
+
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => {
+        return cache.addAll(urlsToCache);
+      })
+  );
+});
+
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request)
+      .then(response => {
+        // Return cached response if found
+        if (response) {
+          return response;
+        }
+        // Otherwise fetch from network
+        return fetch(event.request);
+      })
+  );
+});
+``` 

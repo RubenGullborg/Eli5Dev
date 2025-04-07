@@ -1,0 +1,137 @@
+---
+title: "Object-Oriented Programming"
+description: "Et programmeringsparadigme baseret på konceptet 'objekter', der indeholder data og kode, og er organiseret gennem principper som indkapsling, arv og polymorfisme."
+tags: ["programming", "fundamentals", "paradigm", "software-design"]
+datePublished: 2023-08-10
+---
+
+## What is Object-Oriented Programming?
+
+Object-Oriented Programming (OOP) is a programming paradigm that organizes software design around objects rather than functions and logic. These objects contain both data (attributes) and code (methods), and are organized in classes which can inherit properties and behaviors from other classes. OOP focuses on the concepts of encapsulation, inheritance, polymorphism, and abstraction.
+
+## Simple Analogy
+
+Think of Object-Oriented Programming like a modern automobile factory:
+
+- **Objects**: The individual cars being manufactured. Each car has:
+  - **Attributes (Properties)**: Color, model, engine size, current speed, fuel level
+  - **Methods (Behaviors)**: Start, accelerate, brake, turn, refuel
+
+- **Classes**: The blueprints or templates for creating cars. A "Car" class defines what attributes and behaviors all cars will have, but doesn't represent a specific car until instantiated.
+
+- **Encapsulation**: Like how a car's engine is sealed under the hood. As a driver, you don't need to understand the combustion process or manipulate engine parts directly. You just use the steering wheel, pedals, and dashboard controls (public interface), while the complex mechanics remain hidden (private implementation).
+
+- **Inheritance**: Similar to how different vehicle models inherit characteristics from their base designs:
+  - A base "Vehicle" class might define basic properties like wheels and movement
+  - A "Car" class inherits these basics and adds car-specific features
+  - A "SportsCar" class inherits from "Car" and adds high-performance features
+  - A "Truck" class inherits from "Vehicle" but adds cargo capacity instead
+
+- **Polymorphism**: Like how different vehicles respond to the same action in different ways:
+  - All vehicles have a "start" method, but an electric car starts differently than a diesel truck
+  - All vehicles have a "move" method, but a sports car accelerates differently than an SUV
+
+- **Abstraction**: Like how a car dashboard simplifies complexity by showing only what's relevant:
+  - You see the fuel gauge without knowing the complex fuel measurement system
+  - The check engine light abstracts dozens of possible issues into a simple warning
+
+Just as modern car manufacturing revolutionized transportation by standardizing parts, enabling inheritance of design elements, and abstracting complexity away from drivers, OOP revolutionized software development by creating more maintainable, reusable, and comprehensible code structures.
+
+## Key Concepts
+
+- **Class**: A blueprint for creating objects (instances)
+- **Object**: An instance of a class
+- **Attributes**: Data stored inside an object (properties)
+- **Methods**: Functions that can be performed by the object
+- **Encapsulation**: Bundling data with the methods that operate on that data
+- **Inheritance**: Mechanism where a class inherits properties and behaviors from parent classes
+- **Polymorphism**: Ability to present the same interface for different underlying implementations
+- **Abstraction**: Hiding implementation details while showing only relevant features
+- **Constructor**: Special method used to initialize new objects
+- **Interface**: A contract specifying methods a class must implement
+
+## Example
+
+```javascript
+// A simple OOP example in JavaScript
+
+// Parent Vehicle class
+class Vehicle {
+  constructor(make, model, year) {
+    this.make = make;
+    this.model = model;
+    this.year = year;
+    this.isRunning = false;
+  }
+  
+  start() {
+    this.isRunning = true;
+    console.log('Vehicle started.');
+  }
+  
+  stop() {
+    this.isRunning = false;
+    console.log('Vehicle stopped.');
+  }
+  
+  getInfo() {
+    return `${this.year} ${this.make} ${this.model}`;
+  }
+}
+
+// Car class inherits from Vehicle
+class Car extends Vehicle {
+  constructor(make, model, year, doors) {
+    // Call the parent constructor
+    super(make, model, year);
+    this.doors = doors;
+    this.type = 'car';
+  }
+  
+  // Override the parent method
+  start() {
+    this.isRunning = true;
+    console.log('Car engine purrs to life.');
+  }
+  
+  // Car-specific method
+  honk() {
+    console.log('Beep beep!');
+  }
+}
+
+// Truck class also inherits from Vehicle
+class Truck extends Vehicle {
+  constructor(make, model, year, cargoCapacity) {
+    super(make, model, year);
+    this.cargoCapacity = cargoCapacity;
+    this.type = 'truck';
+  }
+  
+  // Override the parent method with different implementation
+  start() {
+    this.isRunning = true;
+    console.log('Truck engine rumbles loudly.');
+  }
+  
+  // Truck-specific method
+  loadCargo(amount) {
+    console.log(`Loading ${amount} tons of cargo`);
+  }
+}
+
+// Creating instances (objects)
+const myCar = new Car('Toyota', 'Corolla', 2020, 4);
+const myTruck = new Truck('Ford', 'F-150', 2019, 2.5);
+
+// Using inheritance
+console.log(myCar.getInfo()); // Method from parent class
+
+// Using polymorphism - same method, different behaviors
+myCar.start(); // "Car engine purrs to life."
+myTruck.start(); // "Truck engine rumbles loudly."
+
+// Using object-specific methods
+myCar.honk(); // "Beep beep!"
+myTruck.loadCargo(1.5); // "Loading 1.5 tons of cargo"
+``` 

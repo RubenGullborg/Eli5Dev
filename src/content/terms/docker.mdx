@@ -1,0 +1,47 @@
+---
+title: "Docker"
+description: "Et open-source værktøj der pakker software i containere, som kan køre konsistent på tværs af forskellige miljøer."
+tags: ["devops", "containers", "virtualization", "infrastructure"]
+datePublished: 2023-07-27
+---
+
+## What is Docker?
+
+Docker is a platform that packages applications along with their dependencies into standardized units called containers. These containers are isolated from one another and from the host system, ensuring that applications run consistently regardless of the environment they're in.
+
+## Simple Analogy
+
+Think of Docker containers like shipping containers for cargo transport:
+
+- **Traditional Shipping**: Before standardized containers, goods were loaded individually onto ships, requiring unique handling procedures for each item, making transport slow and error-prone.
+
+- **Shipping Containers**: Now, goods are packed into standardized containers that can be easily stacked, moved, and transported across ships, trains, and trucks without unpacking.
+
+Similarly, Docker containers package everything an application needs—code, runtime, libraries, and system tools—into a standardized unit. Just as shipping containers can be transported from ship to train to truck without changing the contents, Docker containers can move from a developer's laptop to a test environment to production without changing the application.
+
+## Key Concepts
+
+- **Containers**: Lightweight, standalone packages that contain everything needed to run an application
+- **Images**: Read-only templates used to create containers, similar to a snapshot or blueprint
+- **Dockerfile**: A text file with instructions for building a Docker image
+- **Registry**: A repository for storing and distributing Docker images (like Docker Hub)
+- **Docker Compose**: A tool for defining and running multi-container applications
+- **Isolation**: Containers are isolated from each other and the host system for security and consistency
+
+## Example
+
+```dockerfile
+# A simple Dockerfile for a Node.js application
+FROM node:14-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm install
+
+COPY . .
+
+EXPOSE 3000
+
+CMD ["npm", "start"]
+``` 

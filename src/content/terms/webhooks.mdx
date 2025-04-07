@@ -1,0 +1,113 @@
+---
+title: "Webhooks"
+description: "User-defined HTTP callbacks der bliver udløst af specifikke hændelser, og gør det muligt for en applikation at modtage real-time data."
+tags: ["api", "backend", "integration", "web"]
+datePublished: 2023-08-08
+---
+
+## What is a Webhook?
+
+A webhook is a method of augmenting or altering the behavior of a web application with custom callbacks. These callbacks may be maintained, modified, and managed by third-party users who may not necessarily be affiliated with the website or application. Webhooks allow applications to communicate automatically with each other in real-time when specific events occur, rather than requiring frequent polling for updates.
+
+## Simple Analogy
+
+Think of webhooks like a notification system for your smartphone:
+
+- **Traditional API (Polling)**: Like repeatedly checking your physical mailbox to see if you have any new mail. You have to manually look several times a day, wasting trips when there's nothing there.
+
+- **Webhooks (Event-Driven)**: Like signing up for text message notifications from your postal service. They automatically notify you the moment a package is delivered, so you only need to check your mailbox when you know something is there.
+
+For a more detailed analogy:
+
+- **Traditional API**: You're a customer at a restaurant who keeps asking the waiter "Is my food ready yet?" every few minutes. This is inefficient—you're interrupting the waiter constantly, and most checks result in "not yet."
+
+- **Webhook**: You're given a buzzer when you order. The restaurant's system (the webhook sender) will automatically notify your buzzer (the webhook receiver) when your specific order is ready. You don't need to keep asking; you'll be notified at exactly the right time.
+
+In both cases, webhooks save resources and provide real-time updates by shifting from a "keep asking" model to a "I'll tell you when something happens" model.
+
+## Key Concepts
+
+- **Event-Driven**: Webhooks are triggered by specific events (e.g., new payment, form submission)
+- **HTTP Callbacks**: Webhooks make HTTP requests to a pre-configured URL
+- **Payload**: The data sent to the webhook endpoint about the event that occurred
+- **Endpoint**: The URL where webhook notifications are sent
+- **Authentication**: Methods to verify webhook requests are legitimate
+- **Idempotency**: Ensuring duplicate webhook deliveries don't cause problems
+- **Retry Logic**: Mechanisms to handle failed webhook deliveries
+- **Subscription**: The process of registering to receive specific webhook events
+
+## Example
+
+```javascript
+// Example: Setting up a webhook endpoint using Express.js
+
+const express = require('express');
+const crypto = require('crypto');
+const app = express();
+
+// Parse JSON request bodies
+app.use(express.json());
+
+// Webhook secret (should match what the sending service uses)
+const WEBHOOK_SECRET = 'your_webhook_secret';
+
+// Webhook endpoint
+app.post('/webhook', (req, res) => {
+  // Get the signature from headers
+  const signature = req.headers['x-webhook-signature'];
+  
+  // Verify the webhook signature
+  const payload = JSON.stringify(req.body);
+  const hmac = crypto.createHmac('sha256', WEBHOOK_SECRET);
+  const digest = hmac.update(payload).digest('hex');
+  
+  if (signature !== digest) {
+    console.error('Invalid webhook signature');
+    return res.status(401).send('Invalid signature');
+  }
+  
+  // Process different event types
+  const { event, data } = req.body;
+  
+  switch(event) {
+    case 'payment.succeeded':
+      console.log(`Payment of $${data.amount} received from ${data.customer}`);
+      // Update database, send confirmation email, etc.
+      break;
+      
+    case 'user.created':
+      console.log(`New user registered: ${data.email}`);
+      // Add to mailing list, trigger welcome flow, etc.
+      break;
+      
+    default:
+      console.log(`Unhandled event type: ${event}`);
+  }
+  
+  // Always respond quickly to acknowledge receipt
+  res.status(200).send('Webhook received');
+});
+
+app.listen(3000, () => {
+  console.log('Webhook server listening on port 3000');
+});
+
+// Example: Configuring a webhook subscription (client side)
+/*
+fetch('https://api.example.com/webhooks', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_API_KEY'
+  },
+  body: JSON.stringify({
+    url: 'https://your-server.com/webhook',
+    events: ['payment.succeeded', 'user.created'],
+    secret: WEBHOOK_SECRET
+  })
+})
+.then(response => response.json())
+.then(data => console.log('Webhook registered:', data))
+.catch(error => console.error('Error registering webhook:', error));
+*/
+```

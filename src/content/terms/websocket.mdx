@@ -1,0 +1,46 @@
+---
+title: "WebSocket"
+description: "A communication protocol that provides full-duplex communication channels over a single TCP connection."
+tags: ["networking", "web", "protocol", "advanced"]
+datePublished: 2023-07-24
+---
+
+## What is WebSocket?
+
+WebSocket is a communication protocol that enables interactive, real-time communication between a client (typically a web browser) and a server. Unlike HTTP, which is request-response based, WebSockets allow for persistent, two-way connections where both client and server can send data at any time without the overhead of establishing a new connection each time.
+
+## Simple Analogy
+
+Think of HTTP as sending letters through postal mail. Each time you want to communicate, you have to write a letter, put it in an envelope, mail it, and wait for a response. 
+
+WebSockets, on the other hand, are like having a phone call. Once the call is established, both parties can speak whenever they need to without having to redial the number each time. The connection stays open until someone hangs up.
+
+## Key Concepts
+
+- **Persistent Connection**: Unlike HTTP which closes after each request/response, WebSockets stay open until explicitly closed
+- **Full-Duplex Communication**: Both client and server can send messages independently at any time
+- **Low Latency**: Reduced overhead results in faster communication, essential for real-time applications
+- **Efficient**: Less bandwidth usage compared to polling or long-polling HTTP requests
+- **Upgrade Mechanism**: WebSocket connections start as HTTP requests and then "upgrade" to WebSocket protocol
+
+## Example
+
+```javascript
+// Client-side WebSocket implementation
+const socket = new WebSocket('ws://example.com/socket');
+
+// Connection opened
+socket.addEventListener('open', (event) => {
+  socket.send('Hello Server!');
+});
+
+// Listen for messages
+socket.addEventListener('message', (event) => {
+  console.log('Message from server:', event.data);
+});
+
+// Connection closed
+socket.addEventListener('close', (event) => {
+  console.log('Connection closed');
+});
+``` 

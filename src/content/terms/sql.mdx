@@ -1,0 +1,74 @@
+---
+title: "SQL"
+description: "Et programmeringssprog til håndtering og forespørgsel af relationelle databaser, der gør det muligt at manipulere og hente data struktureret."
+tags: ["database", "data", "backend", "fundamentals"]
+datePublished: 2023-07-31
+---
+
+## What is SQL?
+
+SQL (Structured Query Language) is a domain-specific programming language designed for managing and querying data in relational database management systems (RDBMS). It allows you to create, read, update, and delete data, as well as define structures to store and organize that data.
+
+## Simple Analogy
+
+Think of a relational database as a collection of spreadsheets (tables), and SQL as the language you use to work with these spreadsheets:
+
+- **Database**: A digital filing cabinet containing many related spreadsheets
+- **Tables**: Individual spreadsheets with rows and columns
+- **Rows**: Individual records (like a single person's information)
+- **Columns**: Categories of data (like name, email, age)
+- **SQL Commands**: The instructions you give to the filing clerk
+
+When you need information, instead of manually searching through spreadsheets, you send a request to a clerk (the database engine) using SQL:
+
+- "Please get me all customer names and emails from the Customers spreadsheet" becomes:
+  ```sql
+  SELECT name, email FROM Customers;
+  ```
+
+- "Find all orders over $100 for customer Jane Doe" becomes:
+  ```sql
+  SELECT * FROM Orders 
+  WHERE customer_name = 'Jane Doe' AND amount > 100;
+  ```
+
+The clerk knows exactly how to interpret these structured requests and returns only the information you asked for, without you needing to look through all the spreadsheets yourself.
+
+## Key Concepts
+
+- **Tables**: Structures for storing data in rows and columns
+- **Queries**: Commands to retrieve specific data
+- **Data Types**: Formats for storing different kinds of data (text, numbers, dates)
+- **Primary Keys**: Unique identifiers for each row in a table
+- **Foreign Keys**: Fields that connect to primary keys in other tables
+- **Joins**: Combining data from multiple tables
+- **Indexes**: Structures that speed up data retrieval
+- **Transactions**: Groups of operations that succeed or fail together
+
+## Example
+
+```sql
+-- Create a table for storing users
+CREATE TABLE Users (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  username VARCHAR(50) NOT NULL UNIQUE,
+  email VARCHAR(100) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Insert data into the table
+INSERT INTO Users (username, email) 
+VALUES ('johndoe', 'john@example.com');
+
+-- Query data with a condition
+SELECT username, email 
+FROM Users 
+WHERE username LIKE 'john%';
+
+-- Join data from multiple tables
+SELECT Orders.order_id, Users.username, Orders.amount
+FROM Orders
+JOIN Users ON Orders.user_id = Users.id
+WHERE Orders.amount > 100
+ORDER BY Orders.amount DESC;
+``` 

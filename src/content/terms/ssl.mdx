@@ -1,0 +1,124 @@
+---
+title: "SSL/TLS"
+description: "Kryptografiprotokoller der skaber sikker kommunikation over internettet ved at kryptere data, der sendes mellem en browser og en webserver."
+tags: ["security", "encryption", "web", "networking"]
+datePublished: 2023-08-14
+---
+
+## What is SSL/TLS?
+
+SSL (Secure Sockets Layer) and its successor TLS (Transport Layer Security) are cryptographic protocols designed to provide secure communication over a computer network. These protocols encrypt the data transmitted between a web browser and a web server, ensuring that sensitive information like passwords, credit card numbers, and personal details cannot be intercepted and read by unauthorized parties. Today, while the term "SSL" is still commonly used, modern websites actually use TLS, as SSL has been deprecated due to security vulnerabilities.
+
+## Simple Analogy
+
+Think of SSL/TLS like sending a confidential letter through a transparent postal system:
+
+- **Unencrypted Connection (HTTP)**: Like sending a postcard with sensitive information written on it. As the postcard travels through various postal facilities and mail carriers, anyone who handles it or even glances at it can read your private message. It's completely exposed.
+
+- **Encrypted Connection (HTTPS with SSL/TLS)**: Like using a sophisticated lockbox system with these features:
+
+  1. **The Lockbox (Encryption)**: You place your message in a special lockbox that only the intended recipient can open.
+  
+  2. **Identifying the Right Recipient (Certificate Verification)**:
+     - Before sending your lockbox, you need to ensure you're sending it to the right person, not an impostor.
+     - The recipient shows you their official ID (SSL certificate) that has been verified by a trusted authority (Certificate Authority).
+     - You check their ID against records from trusted authorities to confirm they are legitimate.
+  
+  3. **Secure Key Exchange (Handshake)**:
+     - You need to agree on a lock and key to use, but can't safely send a key through the mail.
+     - So you use a clever mathematical trick: the recipient sends you their open padlock (public key) that only they have the key for.
+     - You use their padlock to lock the box, and they use their private key to unlock it when received.
+     - For ongoing communication, you both securely agree on a new, faster lock system (symmetric encryption) to use going forward.
+  
+  4. **Tamper Evidence (Message Authentication)**:
+     - The lockbox has a special seal that breaks if anyone tries to tamper with it during transit.
+     - If someone attempts to modify the contents, you'll know immediately because the seal will be broken.
+
+With this lockbox system (SSL/TLS), even though your message still travels through the same transparent postal system with many handlers, nobody can read or alter the contents without detection. Only you and the verified recipient can communicate securely.
+
+## Key Concepts
+
+- **Encryption**: Converting data into a code to prevent unauthorized access
+- **Public Key Infrastructure (PKI)**: System of digital certificates, certificate authorities, and verification
+- **SSL Certificate**: A digital certificate that authenticates a website's identity and enables encrypted connections
+- **Certificate Authority (CA)**: Trusted entity that issues digital certificates
+- **Handshake**: The process where client and server authenticate each other and establish encryption keys
+- **HTTPS**: HTTP protocol with added security using SSL/TLS
+- **Symmetric Encryption**: Using the same key for encryption and decryption (faster, used for the main data exchange)
+- **Asymmetric Encryption**: Using different keys for encryption and decryption (slower, used for the initial handshake)
+- **Man-in-the-Middle Attack**: An attack SSL/TLS is designed to prevent, where someone secretly intercepts and relays communication
+
+## Example
+
+```javascript
+// Setting up a secure HTTPS server with Node.js
+const https = require('https');
+const fs = require('fs');
+const express = require('express');
+
+const app = express();
+
+// Define a simple route
+app.get('/', (req, res) => {
+  res.send('This connection is secure!');
+});
+
+// SSL/TLS certificate files
+const options = {
+  key: fs.readFileSync('path/to/private-key.pem'),
+  cert: fs.readFileSync('path/to/certificate.pem'),
+  // Optional: If you have a CA-signed certificate
+  ca: fs.readFileSync('path/to/ca-certificate.pem')
+};
+
+// Create HTTPS server
+const server = https.createServer(options, app);
+
+// Start server
+server.listen(443, () => {
+  console.log('HTTPS server running on port 443');
+});
+```
+
+```html
+<!-- HTML: Redirecting HTTP to HTTPS -->
+<head>
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+</head>
+```
+
+```nginx
+# Nginx configuration for SSL/TLS
+server {
+    listen 80;
+    server_name example.com www.example.com;
+    
+    # Redirect all HTTP requests to HTTPS
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    server_name example.com www.example.com;
+    
+    # SSL/TLS certificates
+    ssl_certificate /etc/letsencrypt/live/example.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/example.com/privkey.pem;
+    
+    # Recommended SSL settings
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers on;
+    ssl_ciphers 'ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384';
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_timeout 10m;
+    
+    # HSTS (optional but recommended)
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+    
+    # The rest of your server configuration...
+    location / {
+        root /var/www/html;
+        index index.html;
+    }
+}
+``` 

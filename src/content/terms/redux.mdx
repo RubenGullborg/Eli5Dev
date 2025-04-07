@@ -1,0 +1,79 @@
+---
+title: "Redux"
+description: "Et JavaScript bibliotek til håndtering af tilstand i applikationer med forudsigeligt dataflow og centraliseret state."
+tags: ["javascript", "frontend", "state-management", "react"]
+datePublished: 2023-07-29
+---
+
+## What is Redux?
+
+Redux is a predictable state management library for JavaScript applications, commonly used with frameworks like React. It maintains the entire application state in a single, centralized store, making state changes traceable and predictable through a one-way data flow.
+
+## Simple Analogy
+
+Think of Redux like a well-organized bank:
+
+- **The Vault (Store)**: A single, secure location where all the money (state data) is kept. You can't directly access the vault or modify its contents.
+
+- **Bank Tellers (Reducers)**: Staff who perform specific operations on the money in the vault. They take your request, the current state of the vault, and produce a new state.
+
+- **Transaction Slips (Actions)**: Standardized forms that customers fill out to request operations. Each slip has a type (deposit, withdrawal, etc.) and the necessary information to process the transaction.
+
+- **Bank Manager (Dispatcher)**: The person who receives your transaction slip and ensures it gets to the appropriate teller.
+
+When you want to deposit money (update state):
+1. You fill out a transaction slip (create an action)
+2. Hand it to the manager (dispatch the action)
+3. The manager directs it to the correct teller (calls the reducer)
+4. The teller processes your request against the current vault state
+5. The teller updates the vault with the new state
+
+This process ensures that all financial transactions (state changes) are documented, follow a standard procedure, and maintain the integrity of the vault (store).
+
+## Key Concepts
+
+- **Store**: The single source of truth that holds the entire state of the application
+- **Actions**: Plain JavaScript objects that describe what happened (type property is required)
+- **Reducers**: Pure functions that specify how the state changes in response to actions
+- **Dispatch**: The method used to send actions to the store
+- **Selectors**: Functions that extract specific pieces of data from the store
+- **Middleware**: Optional extensions between dispatching an action and reaching the reducer
+
+## Example
+
+```javascript
+// Action Types
+const INCREMENT = 'INCREMENT';
+const DECREMENT = 'DECREMENT';
+
+// Action Creators
+const increment = () => ({ type: INCREMENT });
+const decrement = () => ({ type: DECREMENT });
+
+// Initial State
+const initialState = { count: 0 };
+
+// Reducer
+function counterReducer(state = initialState, action) {
+  switch (action.type) {
+    case INCREMENT:
+      return { count: state.count + 1 };
+    case DECREMENT:
+      return { count: state.count - 1 };
+    default:
+      return state;
+  }
+}
+
+// Create Store
+const { createStore } = Redux;
+const store = createStore(counterReducer);
+
+// Subscribe to store updates
+store.subscribe(() => console.log(store.getState()));
+
+// Dispatch actions
+store.dispatch(increment()); // Logs: { count: 1 }
+store.dispatch(increment()); // Logs: { count: 2 }
+store.dispatch(decrement()); // Logs: { count: 1 }
+``` 

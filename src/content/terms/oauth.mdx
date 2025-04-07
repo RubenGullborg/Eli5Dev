@@ -1,0 +1,95 @@
+---
+title: "OAuth"
+description: "En åben standard for autorisationsprotokoller, der tillader sikker delegeret adgang til ressourcer uden at dele brugerens legitimationsoplysninger."
+tags: ["security", "authentication", "web", "api"]
+datePublished: 2023-08-03
+---
+
+## What is OAuth?
+
+OAuth (Open Authorization) is an open standard protocol that allows third-party applications to access a user's resources on another service without requiring the user to share their credentials. It provides a secure way for users to grant limited access to their resources on one site to another site, while keeping their usernames, passwords, and other credentials private.
+
+## Simple Analogy
+
+Think of OAuth like a hotel key card system:
+
+- **Traditional Authentication (Username/Password)**: Like giving someone your house key. They have complete access to everything, and you have to trust them completely.
+
+- **OAuth**: Like a hotel key card system:
+  1. You (the user) check into a hotel (the identity provider, like Google or Facebook)
+  2. The hotel verifies your identity once at check-in
+  3. You get a special key card (access token) that only opens specific doors
+  4. When a valet (third-party app) needs to park your car, you don't give them your room key
+  5. Instead, the hotel gives the valet a limited-use valet key (specific token) that:
+     - Only works for a specific purpose (parking your car)
+     - Only works for a limited time (expiration)
+     - Doesn't give access to your room (limited scope)
+     - Can be revoked without changing your main key
+
+This way, the valet can perform their specific service without gaining access to your room, and you never had to share your personal ID or credit card (credentials) with the valet. The hotel (identity provider) manages the trust relationship.
+
+## Key Concepts
+
+- **Resource Owner**: The user who owns the data or resource
+- **Client**: The application requesting access to the resources
+- **Authorization Server**: The service that issues access tokens after authenticating the resource owner
+- **Resource Server**: The service hosting the protected resources
+- **Access Token**: A credential used by the client to access protected resources
+- **Scope**: The permissions associated with an access token
+- **Consent**: The process where the user approves the requested permissions
+- **Flows**: Different OAuth procedures for different use cases (authorization code, implicit, etc.)
+
+## Example
+
+```javascript
+// OAuth 2.0 Authorization Code Flow with Express.js
+
+// 1. Redirect user to authorization endpoint
+app.get('/login', (req, res) => {
+  const authUrl = new URL('https://auth-provider.com/oauth/authorize');
+  authUrl.searchParams.append('client_id', 'YOUR_CLIENT_ID');
+  authUrl.searchParams.append('redirect_uri', 'https://your-app.com/callback');
+  authUrl.searchParams.append('response_type', 'code');
+  authUrl.searchParams.append('scope', 'read:profile read:email');
+  authUrl.searchParams.append('state', generateRandomState()); // Prevent CSRF
+  
+  res.redirect(authUrl.toString());
+});
+
+// 2. Handle the callback with authorization code
+app.get('/callback', async (req, res) => {
+  const { code, state } = req.query;
+  
+  // Verify state to prevent CSRF attacks
+  if (!verifyState(state)) {
+    return res.status(403).send('Invalid state parameter');
+  }
+  
+  // Exchange code for token
+  const tokenResponse = await fetch('https://auth-provider.com/oauth/token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      client_id: 'YOUR_CLIENT_ID',
+      client_secret: 'YOUR_CLIENT_SECRET',
+      grant_type: 'authorization_code',
+      code,
+      redirect_uri: 'https://your-app.com/callback'
+    })
+  });
+  
+  const { access_token, token_type, expires_in } = await tokenResponse.json();
+  
+  // Use the access token to get user data
+  const userDataResponse = await fetch('https://auth-provider.com/api/user', {
+    headers: { 'Authorization': `${token_type} ${access_token}` }
+  });
+  
+  const userData = await userDataResponse.json();
+  
+  // Log the user in with the retrieved data
+  // ...
+  
+  res.redirect('/dashboard');
+});
+``` 

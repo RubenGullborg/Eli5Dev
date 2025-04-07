@@ -1,0 +1,85 @@
+---
+title: "CI/CD"
+description: "Continuous Integration og Continuous Deployment/Delivery er praksisser der automatiserer softwareudvikling gennem regelmæssig integration, test og levering."
+tags: ["devops", "automation", "workflow", "software-development"]
+datePublished: 2023-08-02
+---
+
+## What is CI/CD?
+
+CI/CD stands for Continuous Integration and Continuous Deployment (or Continuous Delivery). It's a set of practices and tools in software development that automate the process of integrating code changes, testing them, and deploying to production environments. The goal is to detect problems early, deliver updates faster, and maintain high software quality.
+
+## Simple Analogy
+
+Think of CI/CD like a modern assembly line in a car factory:
+
+- **Traditional Software Development (Pre-CI/CD)**: Like handcrafting individual cars from start to finish. Craftsmen work separately on different cars, only seeing others' work occasionally. When they finally try to combine parts, many compatibility issues arise, requiring significant rework.
+
+- **Continuous Integration (CI)**: Like an assembly line where workers continually add their parts to the main car frame. If a worker's part doesn't fit, they know immediately and can fix it before more work is added on top.
+
+- **Continuous Deployment/Delivery (CD)**: Like the quality control and delivery system after the assembly line:
+  - **Continuous Delivery**: Cars are fully assembled and tested, then parked in the lot ready for a human to do a final check and approve shipping to dealerships (manual approval for production)
+  - **Continuous Deployment**: Cars come off the assembly line, pass automated quality checks, and are immediately loaded onto trucks for delivery (automatic deployment to production)
+
+Just as a modern assembly line has quality checks at each station to catch defects early, CI/CD pipelines run tests after each code change, ensuring problems are caught and fixed immediately rather than accumulating for a big, painful integration later.
+
+## Key Concepts
+
+- **Continuous Integration**: Frequently merging code changes into a shared repository, with automated build and test processes
+- **Continuous Delivery**: Ensuring code is always in a deployable state through automated testing
+- **Continuous Deployment**: Automatically deploying all code changes to production after passing tests
+- **Pipeline**: The automated sequence of steps code changes go through (build, test, deploy)
+- **Automated Testing**: Running tests automatically to validate code changes
+- **Builds**: The process of converting source code into a runnable application
+- **Environments**: Different stages for the application (dev, test, staging, production)
+- **Infrastructure as Code**: Managing infrastructure through version-controlled configuration files
+
+## Example
+
+```yaml
+# Example GitHub Actions CI/CD workflow
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Run linting
+      run: npm run lint
+      
+    - name: Run tests
+      run: npm test
+      
+    - name: Build application
+      run: npm run build
+      
+  deploy:
+    needs: build-and-test
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Deploy to production
+      run: |
+        echo "Deploying to production server..."
+        # Deploy commands would go here
+``` 
