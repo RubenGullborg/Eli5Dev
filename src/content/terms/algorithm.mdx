@@ -1,0 +1,50 @@
+---
+title: "Algorithm"
+description: "A step-by-step procedure or formula for solving a problem or accomplishing a task."
+tags: ["computer science", "programming", "fundamentals"]
+datePublished: 2023-07-22
+---
+
+## What is an Algorithm?
+
+An algorithm is a set of well-defined instructions designed to perform a specific task or solve a particular problem. It takes input data, processes it through a sequence of steps, and produces an output.
+
+## Simple Analogy
+
+Think of an algorithm like a cooking recipe:
+
+1. A recipe starts with ingredients (the input)
+2. Provides step-by-step instructions (the process)
+3. Results in a finished dish (the output)
+
+Just as different recipes exist to make the same dish (some more efficient or tastier than others), different algorithms can solve the same problem with varying levels of efficiency.
+
+## Key Concepts
+
+- **Time Complexity**: How the running time increases as the input size grows
+- **Space Complexity**: How much memory is required as the input size grows
+- **Optimization**: Improving algorithms to be faster or use less memory
+- **Common Types**: Sorting (arranging data), searching (finding data), graph algorithms (finding paths), etc.
+
+## Example
+
+Here's a simple algorithm for finding the largest number in a list:
+
+```javascript
+function findLargestNumber(numbers) {
+  // Start by assuming the first number is the largest
+  let largest = numbers[0];
+  
+  // Check each number in the list
+  for (let i = 1; i < numbers.length; i++) {
+    // If the current number is larger than our current "largest"
+    if (numbers[i] > largest) {
+      // Update our "largest" to be this number
+      largest = numbers[i];
+    }
+  }
+  
+  // Return the largest number we found
+  return largest;
+}
+``` 

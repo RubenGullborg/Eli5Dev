@@ -1,0 +1,35 @@
+---
+title: "React"
+description: "A JavaScript library for building user interfaces with components and a virtual DOM."
+tags: ["frontend", "javascript", "library", "ui"]
+datePublished: 2023-07-20
+---
+
+## What is React?
+
+React is a JavaScript library created by Facebook that makes it easier to build interactive user interfaces. It allows developers to create reusable UI components that update efficiently when data changes.
+
+## Simple Analogy
+
+Think of React like building with LEGO blocks. Each LEGO piece is a "component" - a self-contained, reusable piece that can be combined with other components to build something larger.
+
+When you want to change something, instead of rebuilding the entire LEGO structure, you just swap out the specific pieces that need to change. React works similarly with its "virtual DOM" - it only updates the parts of the webpage that actually need to change, making your application faster and more efficient.
+
+## Key Concepts
+
+- **Components**: Reusable, self-contained pieces of code that return HTML via a render function
+- **Props**: Data passed from parent to child components (like parameters)
+- **State**: Internal data storage that belongs to a specific component
+- **Virtual DOM**: React's "copy" of the real DOM that it uses to determine what needs to be updated
+- **JSX**: Syntax extension that looks like HTML but lets you write JavaScript inside your markup
+
+## Example
+
+```jsx
+function Welcome({ name }) {
+  return <h1>Hello, {name}!</h1>;
+}
+
+// Using the component
+<Welcome name="Developer" />
+``` 

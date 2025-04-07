@@ -1,0 +1,59 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import TermCard from "../components/TermCard.astro";
+
+// Fetch all terms and sort alphabetically
+const allTerms = await getCollection("terms");
+const sortedTerms = allTerms.sort((a, b) => 
+  a.data.title.localeCompare(b.data.title)
+);
+
+// Get unique tags from all terms
+const allTags = [...new Set(
+  allTerms.flatMap(term => term.data.tags || [])
+)].sort();
+---
+
+<Layout title="Browse All Terms - Eli5Dev">
+  <main class="container mx-auto px-4 py-8">
+    <div class="max-w-6xl mx-auto">
+      <div class="mb-8">
+        <a href="/" class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline mb-4 group">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 transform transition-transform group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          Back to Home
+        </a>
+        <h1 class="text-3xl md:text-4xl font-bold mb-2 text-gray-900 dark:text-white">Browse All Terms</h1>
+        <p class="text-lg text-gray-600 dark:text-gray-400">Explore all of our simplified explanations.</p>
+      </div>
+
+      <!-- Tags filter -->
+      <div class="mb-8 overflow-x-auto">
+        <div class="flex flex-wrap gap-2">
+          <button class="text-sm px-3 py-1 rounded-full bg-blue-600 text-white dark:bg-blue-700 dark:text-white">
+            All Terms
+          </button>
+          {allTags.map(tag => (
+            <button class="text-sm px-3 py-1 rounded-full bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-200 hover:bg-blue-100 dark:hover:bg-blue-900 transition-colors">
+              {tag}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <!-- Terms grid -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {sortedTerms.map((term) => (
+          <TermCard
+            title={term.data.title}
+            description={term.data.description}
+            slug={term.slug}
+            tags={term.data.tags || []}
+          />
+        ))}
+      </div>
+    </div>
+  </main>
+</Layout> 

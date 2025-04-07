@@ -34,19 +34,19 @@ export default function SearchBox({ terms }: SearchBoxProps) {
   };
 
   return (
-    <div className="relative w-full max-w-md">
+    <div className="relative w-full">
       <div className="relative">
         <input
           type="text"
-          placeholder="Search terms..."
+          placeholder="Search for a term..."
           value={searchQuery}
           onChange={handleSearch}
           onBlur={() => setTimeout(() => setIsSearching(false), 150)}
           onFocus={() => searchQuery.trim().length > 1 && setIsSearching(true)}
-          className="w-full p-3 pl-10 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
+          className="w-full p-4 pl-12 pr-4 text-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg border-2 border-gray-300 dark:border-gray-600 focus:outline-none focus:border-blue-500 dark:focus:border-blue-400 shadow-md transition-all duration-200"
         />
         <svg
-          className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 dark:text-gray-500"
+          className="absolute left-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-gray-400 dark:text-gray-500"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -62,24 +62,42 @@ export default function SearchBox({ terms }: SearchBoxProps) {
       </div>
 
       {isSearching && (
-        <div className="absolute z-10 w-full mt-1 bg-white dark:bg-gray-800 rounded-lg shadow-lg max-h-96 overflow-y-auto border border-gray-200 dark:border-gray-700">
+        <div className="absolute z-10 w-full mt-2 bg-white dark:bg-gray-800 rounded-lg shadow-xl max-h-[70vh] overflow-y-auto border border-gray-200 dark:border-gray-700">
           {searchResults.length > 0 ? (
             searchResults.map((term) => (
               <a
                 key={term.slug}
                 href={`/term/${term.slug}`}
-                className="block p-3 hover:bg-gray-100 dark:hover:bg-gray-700 border-b border-gray-100 dark:border-gray-700 last:border-0"
+                className="block p-4 hover:bg-gray-100 dark:hover:bg-gray-700 border-b border-gray-100 dark:border-gray-700 last:border-0"
               >
-                <h3 className="font-medium text-gray-900 dark:text-white">
+                <h3 className="font-medium text-lg text-gray-900 dark:text-white">
                   {term.data.title}
                 </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400 truncate">
+                <p className="text-gray-600 dark:text-gray-400 line-clamp-2">
                   {term.data.description}
                 </p>
+
+                {term.data.tags && term.data.tags.length > 0 && (
+                  <div className="flex flex-wrap gap-1 mt-2">
+                    {term.data.tags.slice(0, 3).map((tag) => (
+                      <span
+                        key={tag}
+                        className="bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300 text-xs px-2 py-0.5 rounded-full"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                    {term.data.tags.length > 3 && (
+                      <span className="text-xs text-gray-500 dark:text-gray-400">
+                        +{term.data.tags.length - 3} more
+                      </span>
+                    )}
+                  </div>
+                )}
               </a>
             ))
           ) : (
-            <div className="p-3 text-gray-500 dark:text-gray-400">
+            <div className="p-4 text-center text-gray-500 dark:text-gray-400">
               No results found
             </div>
           )}

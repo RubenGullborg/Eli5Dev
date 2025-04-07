@@ -1,0 +1,39 @@
+---
+title: "Database"
+description: "An organized collection of structured data, typically stored electronically in a computer system."
+tags: ["backend", "data", "storage", "fundamentals"]
+datePublished: 2023-07-23
+---
+
+## What is a Database?
+
+A database is an organized collection of data that is structured to easily store, access, manage, and update information. It provides an efficient way to handle large amounts of information that would be difficult to manage in spreadsheets or text files.
+
+## Simple Analogy
+
+Think of a database like a highly organized library:
+
+- **Tables** are like different sections in the library (fiction, non-fiction, reference)
+- **Rows** are like individual books on the shelves
+- **Columns** are like specific details about each book (title, author, publication date)
+- **Indexes** are like the library's catalog system that helps you quickly find specific books
+- **Queries** are like asking the librarian to find books that match specific criteria
+
+The big difference is that databases can instantly search through millions of "books" and find exactly what you're looking for in milliseconds.
+
+## Types of Databases
+
+- **Relational Databases (SQL)**: Structured like spreadsheets with tables that relate to each other (MySQL, PostgreSQL, SQLite)
+- **NoSQL Databases**: More flexible data models for unstructured data (MongoDB, Cassandra, Redis)
+- **Graph Databases**: Represent complex networks of relationships (Neo4j)
+- **Time-Series Databases**: Optimized for time-stamped data (InfluxDB)
+
+## Example (SQL Query)
+
+```sql
+-- Find all users who live in New York
+SELECT first_name, last_name, email
+FROM users
+WHERE city = 'New York'
+ORDER BY last_name;
+``` 
