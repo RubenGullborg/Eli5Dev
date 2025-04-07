@@ -1,0 +1,76 @@
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+// Generate static paths for all terms
+export async function getStaticPaths() {
+  const terms = await getCollection("terms");
+  return terms.map((term) => ({
+    params: { slug: term.slug },
+    props: { term },
+  }));
+}
+
+interface Props {
+  term: CollectionEntry<Fragment terms>;
+}
+
+const { term } = Astro.props;
+const { Content } = await term.render();
+
+// Find related terms based on shared tags
+const allTerms = await getCollection('terms');
+const relatedTerms = allTerms
+  .filter(otherTerm => 
+    otherTerm.slug !== term.slug && // Exclude the current term
+    otherTerm.data.tags?.some(tag => term.data.tags?.includes(tag)) // Check for shared tags
+  )
+  .slice(0, 3); // Limit to 3 related terms
+
+<Layout title={`${term.data.title} - Eli5Dev`}>
+  <main class="container mx-auto p-4 md:p-8">
+    <div class="max-w-3xl mx-auto">
+      <a href="/" class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline mb-6 group">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 transform transition-transform group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        Back to Overview
+      </a>
+      
+      <article class="bg-white dark:bg-gray-800 p-6 md:p-8 rounded-lg shadow-lg">
+        <h1 class="text-3xl md:text-4xl font-bold mb-3 text-gray-900 dark:text-white">{term.data.title}</h1>
+        
+        {term.data.tags && term.data.tags.length > 0 && (
+          <div class="flex flex-wrap gap-2 mb-6">
+            {term.data.tags.map((tag) => (
+              <span class="bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300 text-sm font-medium px-3 py-1 rounded-full">
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+        
+        <div class="prose prose-lg dark:prose-invert max-w-none mt-6 text-gray-700 dark:text-gray-300">
+          <Content />
+        </div>
+      </article>
+      
+      {relatedTerms.length > 0 && (
+        <aside class="mt-12">
+          <h2 class="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-200">Related Terms</h2>
+          <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+            {relatedTerms.map((relTerm) => (
+              <a 
+                href={`/term/${relTerm.slug}`} 
+                class="block p-4 bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-md transition-shadow border border-gray-200 dark:border-gray-700"
+              >
+                <h3 class="font-semibold text-lg text-gray-900 dark:text-white mb-1">{relTerm.data.title}</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">{relTerm.data.description}</p>
+              </a>
+            ))}
+          </div>
+        </aside>
+      )}
+    </div>
+  </main>
+</Layout> 

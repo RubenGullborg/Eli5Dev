@@ -1,0 +1,31 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  slug: string;
+  tags?: string[];
+}
+
+const { title, description, slug, tags = [] } = Astro.props;
+---
+
+<a
+  href={`/term/${slug}`}
+  class="block bg-white dark:bg-gray-800 p-5 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-gray-200 dark:border-gray-700"
+>
+  <h2 class="text-xl font-semibold mb-2 text-gray-900 dark:text-white">{title}</h2>
+  <p class="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">{description}</p>
+
+  {
+    tags.length > 0 && (
+      <div class="flex flex-wrap gap-2 mt-auto pt-2">
+        {tags.slice(0, 3).map((tag) => (
+          <span class="bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300 text-xs font-medium px-2.5 py-0.5 rounded-full">
+            {tag}
+          </span>
+        ))}
+        {tags.length > 3 && <span class="text-xs text-gray-500 dark:text-gray-400">+{tags.length - 3} more</span>}
+      </div>
+    )
+  }
+</a>
