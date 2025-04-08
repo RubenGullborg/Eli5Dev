@@ -9,37 +9,55 @@ const allTerms = await getCollection("terms");
 ---
 
 <Layout title="Eli5Dev - Tech Terms Simplified">
-  <main class="flex flex-col items-center justify-center min-h-screen px-4 py-12 bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
+  <main
+    class="flex flex-col items-center justify-center min-h-screen px-4 py-12 bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800"
+  >
     <div class="text-center mb-8">
-      <h1 class="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
+      <h1
+        class="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent"
+      >
         Eli5Dev
       </h1>
       <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-2xl">
         Technical terms explained simply.
       </p>
     </div>
-    
+
     <div class="w-full max-w-2xl flex flex-col gap-6 items-center">
       <SearchBox client:load terms={allTerms} />
-      
+
       <div class="flex items-center justify-center w-full">
         <div class="flex-grow h-px bg-gray-200 dark:bg-gray-700 mx-4"></div>
         <span class="text-gray-500 dark:text-gray-400 text-sm">or</span>
         <div class="flex-grow h-px bg-gray-200 dark:bg-gray-700 mx-4"></div>
       </div>
-      
+
       <RandomTermButton client:load terms={allTerms} />
     </div>
-    
+
     <div id="randomTermContainer" class="w-full max-w-3xl mt-12 px-4">
       <!-- Random term will be displayed here by the RandomTermButton component -->
     </div>
-    
+
     <div class="mt-16 text-center">
       <p class="text-gray-500 dark:text-gray-400">
-        <a href="/about" class="text-blue-600 dark:text-blue-400 hover:underline">About this project</a>
+        <a
+          href="/browse"
+          class="text-blue-600 dark:text-blue-400 hover:underline"
+          >Browse all terms</a
+        >
         &nbsp;•&nbsp;
-        <a href="/browse" class="text-blue-600 dark:text-blue-400 hover:underline">Browse all terms</a>
+        <a
+          href="/browse"
+          class="text-blue-600 dark:text-blue-400 hover:underline"
+          >Guess the Term</a
+        >
+        &nbsp;•&nbsp;
+        <a
+          href="/about"
+          class="text-blue-600 dark:text-blue-400 hover:underline"
+          >About this project</a
+        >
       </p>
     </div>
   </main>

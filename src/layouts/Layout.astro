@@ -10,40 +10,99 @@ const { title = "Eli5Dev - Tech Terms Simplified" } = Astro.props;
 <html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Technical terms explained simply for new developers (ELI5 - Explain Like I'm 5)">
+    <meta
+      name="description"
+      content="Technical terms explained simply for new developers (ELI5 - Explain Like I'm 5)"
+    />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
-    <meta name="theme-color" content="#ffffff">
+    <meta name="theme-color" content="#ffffff" />
   </head>
-  <body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen flex flex-col">
+  <body
+    class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen flex flex-col"
+  >
     <header class="bg-white dark:bg-gray-800 shadow-md sticky top-0 z-50">
       <div class="container mx-auto px-4">
         <nav class="flex justify-between items-center py-3">
-          <a href="/" class="text-2xl font-bold text-blue-600 dark:text-blue-400 hover:opacity-80 transition-opacity">Eli5Dev</a>
-          
+          <a
+            href="/"
+            class="text-2xl font-bold text-blue-600 dark:text-blue-400 hover:opacity-80 transition-opacity"
+            >Eli5Dev</a
+          >
+
           <!-- Mobile menu button -->
-          <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          <button
+            id="mobileMenuBtn"
+            class="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"></path>
             </svg>
           </button>
 
           <!-- Desktop navigation -->
           <div class="hidden md:flex items-center space-x-6">
-            <a href="/" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Home</a>
-            <a href="/browse" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Browse</a>
-            <a href="/about" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">About</a>
+            <a
+              href="/"
+              class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              >Home</a
+            >
+            <a
+              href="/browse"
+              class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              >Browse</a
+            >
+            <a
+              href="/gamify"
+              class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              >Guess the Term</a
+            >
+            <a
+              href="/about"
+              class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              >About</a
+            >
           </div>
         </nav>
 
         <!-- Mobile navigation -->
-        <div id="mobileMenu" class="hidden md:hidden py-4 border-t border-gray-200 dark:border-gray-700">
+        <div
+          id="mobileMenu"
+          class="hidden md:hidden py-4 border-t border-gray-200 dark:border-gray-700"
+        >
           <div class="flex flex-col space-y-4">
-            <a href="/" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Home</a>
-            <a href="/browse" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Browse</a>
-            <a href="/about" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">About</a>
+            <a
+              href="/"
+              class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              >Home</a
+            >
+            <a
+              href="/browse"
+              class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              >Browse</a
+            >
+            <a
+              href="/about"
+              class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              >About</a
+            >
+            <a
+              href="/gamify"
+              class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              >Guess the Term</a
+            >
           </div>
         </div>
       </div>
@@ -53,9 +112,13 @@ const { title = "Eli5Dev - Tech Terms Simplified" } = Astro.props;
       <slot />
     </div>
 
-    <footer class="bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 py-8 mt-12">
+    <footer
+      class="bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 py-8 mt-12"
+    >
       <div class="container mx-auto px-4 text-center">
-        <p>&copy; {new Date().getFullYear()} Eli5Dev. Simplifying tech terms.</p>
+        <p>
+          &copy; {new Date().getFullYear()} Eli5Dev. Simplifying tech terms.
+        </p>
       </div>
     </footer>
   </body>
@@ -64,21 +127,19 @@ const { title = "Eli5Dev - Tech Terms Simplified" } = Astro.props;
 <script>
   // Theme toggle functionality
 
-
   // Mobile menu functionality
-  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-  const mobileMenu = document.getElementById('mobileMenu');
-  const themeToggle = document.getElementById('themeToggle');
-  const mobileThemeToggle = document.getElementById('mobileThemeToggle');
+  const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+  const mobileMenu = document.getElementById("mobileMenu");
+  const themeToggle = document.getElementById("themeToggle");
+  const mobileThemeToggle = document.getElementById("mobileThemeToggle");
 
-  mobileMenuBtn?.addEventListener('click', () => {
-    mobileMenu?.classList.toggle('hidden');
+  mobileMenuBtn?.addEventListener("click", () => {
+    mobileMenu?.classList.toggle("hidden");
   });
-
 </script>
 
 <style is:global>
-  @import '../styles/global.css';
+  @import "../styles/global.css";
 
   /* Improve prose styling for markdown content */
   .prose h2 {
@@ -90,20 +151,21 @@ const { title = "Eli5Dev - Tech Terms Simplified" } = Astro.props;
   .prose a {
     @apply text-blue-600 dark:text-blue-400 hover:underline;
   }
-  .prose code::before, .prose code::after {
-      content: ""; /* Remove backticks added by prose */
+  .prose code::before,
+  .prose code::after {
+    content: ""; /* Remove backticks added by prose */
   }
   .prose code {
     @apply bg-gray-100 dark:bg-gray-700 px-1 py-0.5 rounded text-sm font-mono text-red-600 dark:text-red-400;
   }
   .prose pre {
-      @apply bg-gray-100 dark:bg-gray-700 p-4 rounded-md overflow-x-auto;
+    @apply bg-gray-100 dark:bg-gray-700 p-4 rounded-md overflow-x-auto;
   }
   .prose pre code {
-      @apply bg-transparent p-0 rounded-none text-sm text-inherit dark:text-inherit;
+    @apply bg-transparent p-0 rounded-none text-sm text-inherit dark:text-inherit;
   }
   .prose ul {
-      @apply list-disc pl-5;
+    @apply list-disc pl-5;
   }
   .prose li > p {
     @apply my-0; /* Fix extra margin in list items */
