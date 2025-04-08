@@ -7,7 +7,7 @@ const { title = "Eli5Dev - Tech Terms Simplified" } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth h-full">
   <head>
     <meta charset="UTF-8" />
     <meta
@@ -21,7 +21,7 @@ const { title = "Eli5Dev - Tech Terms Simplified" } = Astro.props;
     <meta name="theme-color" content="#ffffff" />
   </head>
   <body
-    class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen flex flex-col"
+    class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen flex flex-col h-full"
   >
     <header class="bg-white dark:bg-gray-800 shadow-md sticky top-0 z-50">
       <div class="container mx-auto px-4">
@@ -108,12 +108,12 @@ const { title = "Eli5Dev - Tech Terms Simplified" } = Astro.props;
       </div>
     </header>
 
-    <div class="flex-grow">
+    <div class="flex-grow flex flex-col">
       <slot />
     </div>
 
     <footer
-      class="bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 py-8 mt-12"
+      class="bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 py-8"
     >
       <div class="container mx-auto px-4 text-center">
         <p>
