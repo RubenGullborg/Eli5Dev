@@ -29,31 +29,54 @@ const allTags = [...new Set(
         <p class="text-lg text-gray-600 dark:text-gray-400">Explore all of our simplified explanations.</p>
       </div>
 
-      <!-- Tags filter -->
-      <div class="mb-8 overflow-x-auto">
-        <div class="flex flex-wrap gap-2">
-          <button class="text-sm px-3 py-1 rounded-full bg-blue-600 text-white dark:bg-blue-700 dark:text-white">
-            All Terms
-          </button>
-          {allTags.map(tag => (
-            <button class="text-sm px-3 py-1 rounded-full bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-200 hover:bg-blue-100 dark:hover:bg-blue-900 transition-colors">
-              {tag}
-            </button>
-          ))}
+      <!-- Filter dropdown -->
+      <div class="mb-8">
+        <div class="relative">
+          <select id="tagFilter" class="appearance-none bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 pr-8 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            <option value="">All Terms</option>
+            {allTags.map(tag => (
+              <option value={tag}>{tag}</option>
+            ))}
+          </select>
+          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 dark:text-gray-300">
+            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+              <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+            </svg>
+          </div>
         </div>
       </div>
 
       <!-- Terms grid -->
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div id="termsGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {sortedTerms.map((term) => (
-          <TermCard
-            title={term.data.title}
-            description={term.data.description}
-            slug={term.slug}
-            tags={term.data.tags || []}
-          />
+          <div class="term-card" data-tags={JSON.stringify(term.data.tags || [])}>
+            <TermCard
+              title={term.data.title}
+              description={term.data.description}
+              slug={term.slug}
+              tags={term.data.tags || []}
+            />
+          </div>
         ))}
       </div>
     </div>
   </main>
-</Layout> 
+</Layout>
+
+<script>
+  const tagFilter = document.getElementById('tagFilter') as HTMLSelectElement;
+  const termCards = document.querySelectorAll<HTMLElement>('.term-card');
+
+  tagFilter?.addEventListener('change', (e) => {
+    const selectedTag = (e.target as HTMLSelectElement).value;
+    
+    termCards.forEach(card => {
+      const cardTags = JSON.parse(card.dataset.tags || '[]');
+      if (!selectedTag || cardTags.includes(selectedTag)) {
+        card.style.display = 'block';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+</script> 

@@ -25,6 +25,9 @@ const relatedTerms = allTerms
     term.data.tags?.some((tag: string) => otherTerm.data.tags?.includes(tag)) // Add type hint for tag if needed
   )
   .slice(0, 3);
+
+// Get all terms for random selection
+const allTermsForRandom = allTerms.map(t => ({ slug: t.slug, title: t.data.title }));
 ---
 
 <Layout title={`${term.data.title} - Eli5Dev`}>
@@ -55,6 +58,16 @@ const relatedTerms = allTerms
         </div>
       </article>
       
+      <!-- Random Term Button -->
+      <div class="mb-12 text-center">
+        <button id="randomTermBtn" class="inline-flex items-center justify-center w-full max-w-xs px-4 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-80 dark:from-blue-400 dark:to-purple-400 text-white font-medium rounded-lg transition-opacity">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          </svg>
+          Discover Another Term
+        </button>
+      </div>
+      
       {relatedTerms.length > 0 && (
         <aside>
           <h2 class="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-200">Related Terms</h2>
@@ -73,4 +86,14 @@ const relatedTerms = allTerms
       )}
     </div>
   </main>
-</Layout> 
+</Layout>
+
+<script define:vars={{ allTermsForRandom }}>
+  const randomTermBtn = document.getElementById('randomTermBtn');
+  
+  randomTermBtn?.addEventListener('click', () => {
+    const randomIndex = Math.floor(Math.random() * allTermsForRandom.length);
+    const randomTerm = allTermsForRandom[randomIndex];
+    window.location.href = `/term/${randomTerm.slug}`;
+  });
+</script> 

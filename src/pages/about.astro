@@ -3,36 +3,30 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="About Eli5Dev - Tech Terms Simplified">
-  <main class="container mx-auto px-4 py-8">
-    <div
-      class="max-w-3xl mx-auto bg-white dark:bg-gray-800 p-6 md:p-8 rounded-lg shadow-lg"
-    >
-      <h1
-        class="text-3xl md:text-4xl font-bold mb-6 text-gray-900 dark:text-white"
-      >
+  <main class="container mx-auto px-4 py-12">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="text-4xl md:text-5xl font-bold mb-8 text-gray-900 dark:text-white">
         About Eli5Dev
       </h1>
 
-      <div
-        class="prose prose-lg dark:prose-invert max-w-none text-gray-700 dark:text-gray-300"
-      >
-        <p>
+      <div class="prose prose-lg dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-6">
+        <p class="text-xl leading-relaxed">
           Eli5Dev (Explain Like I'm 5 for Developers) is a resource designed to
           help new developers understand complex technical concepts through
           simple analogies and explanations.
         </p>
 
-        <p>
+        <p class="text-xl leading-relaxed">
           Our goal is to break down learning barriers by explaining technical
           concepts in a way that's easy to grasp, even for those just starting
           their journey in the development world.
         </p>
 
-        <h2 class="text-2xl font-semibold mt-8 mb-4">
+        <h2 class="text-3xl font-semibold mt-12 mb-6 text-gray-900 dark:text-white">
           Why "Explain Like I'm 5"?
         </h2>
 
-        <p>
+        <p class="text-xl leading-relaxed">
           "Explain Like I'm 5" (ELI5) is a concept centered around explaining
           complex topics in such a simple way that even a child could
           understand. In the tech world, jargon and abstract concepts can be
@@ -40,25 +34,32 @@ import Layout from "../layouts/Layout.astro";
           these concepts more accessible through:
         </p>
 
-        <ul>
-          <li>Simple, clear explanations without unnecessary jargon</li>
-          <li>
+        <ul class="list-none space-y-3">
+          <li class="flex items-center">
+            <span class="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
+            Simple, clear explanations without unnecessary jargon
+          </li>
+          <li class="flex items-center">
+            <span class="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
             Relatable analogies connecting technical terms to everyday concepts
           </li>
-          <li>Practical examples demonstrating the concepts in action</li>
+          <li class="flex items-center">
+            <span class="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
+            Practical examples demonstrating the concepts in action
+          </li>
         </ul>
 
-        <h2 class="text-2xl font-semibold mt-8 mb-4">Contributing</h2>
+        <h2 class="text-3xl font-semibold mt-12 mb-6 text-gray-900 dark:text-white">Contributing</h2>
 
-        <p>
+        <p class="text-xl leading-relaxed">
           Eli5Dev is an open project, and we encourage community contributions.
           If you have a great explanation for a tech term or a helpful analogy
           that helped you understand something complex, feel free to share it!
           Check out the project on <a
             href="https://github.com/RubenGullborg/Eli5Dev"
             target="_blank"
-            rel="noopener noreferrer">GitHub</a
-          >.
+            rel="noopener noreferrer"
+            class="text-blue-600 dark:text-blue-400 hover:underline">GitHub</a>.
         </p>
       </div>
     </div>
