@@ -1,6 +1,9 @@
 ---
 title: "Big O Notation"
 description: "A mathematical notation that describes an algorithm's efficiency or complexity by characterizing its worst-case runtime or space consumption."
+question: "What notation do programmers use to describe how an algorithm's performance scales as the input size grows?"
+hint: "It uses a letter O followed by a mathematical expression in parentheses to categorize algorithms by their efficiency."
+analogy: "Think of Big O Notation like planning different methods to search for a book in various library arrangements. Different algorithms have different pros and cons and you can then choose the most efficient 'search method' based on the 'library type'."
 tags: ["algorithms", "computer-science", "performance", "fundamentals"]
 datePublished: 2023-08-15
 ---
@@ -12,114 +15,34 @@ Big O Notation is a mathematical notation used in computer science to describe t
 ## Simple Analogy
 
 Think of Big O Notation like planning different methods to search for a book in various library arrangements:
-
-- **O(1) - Constant Time**: Like having a library assistant who somehow instantly knows the exact location of any book you ask for, regardless of library size. Whether there are 10 books or 10 million, it takes exactly the same amount of time to retrieve the book.
-
+<br/>
+- **O(1) - Constant Time**: <br/> Like having a library assistant who somehow instantly knows the exact location of any book you ask for, regardless of library size. Whether there are 10 books or 10 million, it takes exactly the same amount of time to retrieve the book.
+<br/>
   *Example: Accessing an element in an array by its index.*
-
-- **O(log n) - Logarithmic Time**: Like looking for a book in a well-organized library using the Dewey Decimal System. You start in the middle of the library, determine if your book is in the first or second half, and continue dividing the search area in half until you find your book. If the library doubles in size, you only need one additional step.
-
+<br/>
+- **O(log n) - Logarithmic Time**:<br/> Like looking for a book in a well-organized library using the Dewey Decimal System. You start in the middle of the library, determine if your book is in the first or second half, and continue dividing the search area in half until you find your book. If the library doubles in size, you only need one additional step.
+<br/>
   *Example: Binary search in a sorted array.*
-
-- **O(n) - Linear Time**: Like searching for a book on a specific shelf by checking each book, one by one, until you find the right one. If the shelf has twice as many books, it will take you twice as long to search through all of them.
-
+<br/>
+- **O(n) - Linear Time**:<br/> Like searching for a book on a specific shelf by checking each book, one by one, until you find the right one. If the shelf has twice as many books, it will take you twice as long to search through all of them.
+<br/>
   *Example: A simple for-loop through an array.*
-
-- **O(n log n) - Linearithmic Time**: Like organizing an unsorted bookshelf using a method where you repeatedly divide the books into smaller piles, sort each pile, and then merge them back together. It's more efficient than basic sorting methods for large collections.
-
+<br/>
+- **O(n log n) - Linearithmic Time**:<br/> Like organizing an unsorted bookshelf using a method where you repeatedly divide the books into smaller piles, sort each pile, and then merge them back together. It's more efficient than basic sorting methods for large collections.
+<br/>
   *Example: Efficient sorting algorithms like merge sort or quicksort.*
-
-- **O(n²) - Quadratic Time**: Like comparing each book on a shelf to every other book on the shelf to find duplicates. If the number of books doubles, the time it takes quadruples.
-
+<br/>
+- **O(n²) - Quadratic Time**:<br/> Like comparing each book on a shelf to every other book on the shelf to find duplicates. If the number of books doubles, the time it takes quadruples.
+<br/>
   *Example: Nested for-loops, bubble sort.*
-
-- **O(2ⁿ) - Exponential Time**: Like trying to find the single correct combination of books to take out from the library by checking every possible combination. Each additional book doubles the number of combinations to check.
-
+<br/>
+- **O(2ⁿ) - Exponential Time**:<br/> Like trying to find the single correct combination of books to take out from the library by checking every possible combination. Each additional book doubles the number of combinations to check.
+<br/>
   *Example: Recursive calculation of Fibonacci numbers without memoization.*
-
-- **O(n!) - Factorial Time**: Like trying to find all possible ways to arrange books on a shelf. With just 10 books, you'd need to check over 3.6 million different arrangements.
-
+<br/>
+- **O(n!) - Factorial Time**:<br/> Like trying to find all possible ways to arrange books on a shelf. With just 10 books, you'd need to check over 3.6 million different arrangements.
+<br/>
   *Example: Solving the traveling salesman problem by checking all possible routes.*
-
+<br/>
 Just as you'd choose different search strategies depending on how the library is organized and how many books it contains, programmers choose different algorithms based on their complexity and the expected input size.
 
-## Key Concepts
-
-- **Asymptotic Analysis**: Focuses on the behavior of the algorithm for large inputs
-- **Worst-Case Scenario**: Big O represents the upper bound of an algorithm's performance
-- **Dominant Terms**: Only the highest-order term matters (e.g., O(n² + n) simplifies to O(n²))
-- **Constants Are Dropped**: O(2n) simplifies to O(n), as constants don't affect how the algorithm scales
-- **Time Complexity**: How runtime grows with input size
-- **Space Complexity**: How memory usage grows with input size
-- **Common Complexities** (from most to least efficient):
-  - O(1) - Constant
-  - O(log n) - Logarithmic
-  - O(n) - Linear
-  - O(n log n) - Linearithmic
-  - O(n²) - Quadratic
-  - O(2ⁿ) - Exponential
-  - O(n!) - Factorial
-
-## Example
-
-```javascript
-// O(1) - Constant Time
-function getFirstElement(array) {
-  return array[0]; // Always takes the same time regardless of array size
-}
-
-// O(log n) - Logarithmic Time
-function binarySearch(sortedArray, target) {
-  let left = 0;
-  let right = sortedArray.length - 1;
-  
-  while (left <= right) {
-    const mid = Math.floor((left + right) / 2);
-    
-    if (sortedArray[mid] === target) {
-      return mid; // Found the target
-    } else if (sortedArray[mid] < target) {
-      left = mid + 1; // Target is in the right half
-    } else {
-      right = mid - 1; // Target is in the left half
-    }
-  }
-  
-  return -1; // Target not found
-}
-
-// O(n) - Linear Time
-function findMax(array) {
-  let max = array[0];
-  
-  for (let i = 1; i < array.length; i++) {
-    if (array[i] > max) {
-      max = array[i];
-    }
-  }
-  
-  return max;
-}
-
-// O(n²) - Quadratic Time
-function bubbleSort(array) {
-  const n = array.length;
-  
-  for (let i = 0; i < n; i++) {
-    for (let j = 0; j < n - i - 1; j++) {
-      if (array[j] > array[j + 1]) {
-        // Swap elements
-        [array[j], array[j + 1]] = [array[j + 1], array[j]];
-      }
-    }
-  }
-  
-  return array;
-}
-
-// O(2ⁿ) - Exponential Time
-function fibonacci(n) {
-  if (n <= 1) return n;
-  return fibonacci(n - 1) + fibonacci(n - 2);
-}
-``` 

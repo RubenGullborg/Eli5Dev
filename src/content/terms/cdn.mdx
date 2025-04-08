@@ -1,110 +1,28 @@
 ---
 title: "CDN"
 description: "A Content Delivery Network is a network of distributed servers that deliver web content to users based on their geographic location to maximize speed and availability."
+question: "What technology helps websites load faster by storing copies of content closer to users?"
+hint: "This network of servers delivers content from the nearest location rather than from a distant central server."
+analogy: "Think of a CDN like a chain of restaurants. Instead of having just one restaurant in New York that ships food worldwide, you have identical restaurants in cities around the world. When you order food, you get it from the nearest restaurant, not from New York. This makes delivery much faster and more reliable."
 tags: ["networking", "performance", "web", "infrastructure"]
 datePublished: 2023-08-13
 ---
 
 ## What is a CDN?
 
-A Content Delivery Network (CDN) is a geographically distributed network of servers that work together to provide fast delivery of internet content. CDNs store cached copies of website content in multiple locations around the world, so when a user requests a webpage, the content is delivered from the nearest server rather than from the original, potentially distant host server. This significantly reduces latency, speeds up load times, and helps websites handle high traffic volumes.
+A Content Delivery Network (CDN) is a geographically distributed network of servers that work together to provide fast delivery of internet content. CDNs store cached copies of website content in multiple locations around the world, so when a user requests a webpage, the content is delivered from the nearest server rather than from the original, potentially distant host server.
 
 ## Simple Analogy
 
-Think of a CDN like an international coffee chain with identical stores in cities worldwide:
-
-- **Traditional Web Hosting (Single Origin Server)**: Like having just one coffee shop in Seattle. No matter where you are in the world—New York, Tokyo, London, Sydney—you must place your order directly to Seattle and wait for your coffee to be prepared and shipped from there. If you're in Tokyo, that's a long wait!
-
-- **Content Delivery Network**: Like having identical coffee shops in major cities worldwide:
-  - Each store has the same menu, equipment, and ingredients (cached content)
-  - You always visit the shop closest to you (nearest edge server)
-  - The original Seattle location (origin server) trains all baristas and develops recipes
-  - When a new drink is added to the menu, Seattle informs all shops (cache updates)
-  - During local festivals, the shop in that city can handle the crowd without affecting other locations (regional traffic spikes)
-  - If one shop temporarily closes, you can visit the next nearest one (redundancy)
-
-When you're in Tokyo and order a latte:
-- **Without CDN**: Your order goes to Seattle, they make the coffee, and ship it to Tokyo (slow, coffee gets cold)
-- **With CDN**: You order at the Tokyo shop, and get your coffee immediately (fast, fresh, and hot)
-
-The CDN approach means:
-- **Faster service**: Get your coffee from the nearest shop, not from headquarters
-- **Consistent quality**: Every shop makes identical drinks using the same recipes
-- **Reliability**: If one shop is extremely busy or closed, others remain unaffected
-- **Scaling capacity**: During busy periods, local shops handle increased traffic without overwhelming headquarters
-- **Reduced travel costs**: Coffee doesn't need to be shipped long distances (reduced bandwidth)
-
-Just as a coffee chain with global presence provides faster, more reliable service than a single shop shipping worldwide, a CDN delivers web content faster and more reliably than a single origin server.
-
-## Key Concepts
-
-- **Edge Servers**: The distributed servers that cache and deliver content to users
-- **Origin Server**: The main server where the original content is stored
-- **Caching**: Temporarily storing copies of files to deliver them more quickly
-- **Points of Presence (PoPs)**: Physical locations where edge servers are deployed
-- **Content Push**: Manually uploading content to the CDN before it's requested
-- **Content Pull**: CDN fetches content from the origin server when first requested
-- **Cache Hit**: When requested content is available from the nearest edge server
-- **Cache Miss**: When content must be fetched from the origin server
-- **TTL (Time To Live)**: How long content remains cached before being refreshed
-- **Purging**: Manually removing content from the cache to force a refresh
-
-## Example
-
-```html
-<!-- Implementing a CDN for website assets -->
-
-<!-- Without CDN -->
-<link rel="stylesheet" href="https://mywebsite.com/css/styles.css">
-<script src="https://mywebsite.com/js/main.js"></script>
-<img src="https://mywebsite.com/images/hero.jpg" alt="Hero Image">
-
-<!-- With CDN -->
-<link rel="stylesheet" href="https://cdn.mywebsite.com/css/styles.css">
-<script src="https://cdn.mywebsite.com/js/main.js"></script>
-<img src="https://cdn.mywebsite.com/images/hero.jpg" alt="Hero Image">
-```
-
-```javascript
-// Setting up a CDN with common services is often a matter of configuration
-// Example: Setting up Amazon CloudFront distribution via AWS SDK
-
-const AWS = require('aws-sdk');
-const cloudfront = new AWS.CloudFront();
-
-const params = {
-  DistributionConfig: {
-    Origins: {
-      Quantity: 1,
-      Items: [
-        {
-          Id: 'myWebsiteOrigin',
-          DomainName: 'mywebsite.com.s3.amazonaws.com',
-          S3OriginConfig: {
-            OriginAccessIdentity: ''
-          }
-        }
-      ]
-    },
-    DefaultCacheBehavior: {
-      TargetOriginId: 'myWebsiteOrigin',
-      ViewerProtocolPolicy: 'redirect-to-https',
-      MinTTL: 0,
-      DefaultTTL: 86400, // 1 day in seconds
-      MaxTTL: 31536000, // 1 year in seconds
-      ForwardedValues: {
-        QueryString: false,
-        Cookies: { Forward: 'none' }
-      }
-    },
-    Enabled: true,
-    Comment: 'My website CDN distribution',
-    CallerReference: Date.now().toString()
-  }
-};
-
-cloudfront.createDistribution(params, (err, data) => {
-  if (err) console.error('Error creating distribution:', err);
-  else console.log('Distribution created:', data.Distribution.DomainName);
-});
-``` 
+Think of a CDN like a chain of restaurants:
+<br/>
+- **Without CDN**: Imagine having just one restaurant in New York that ships food worldwide. If you're in Tokyo, your order goes to New York, they prepare it, and ship it to Tokyo (slow, food gets cold).
+<br/>
+- **With CDN**: Instead, now imagine having identical restaurants in cities worldwide. When you order food, you get it from the nearest restaurant, not from New York (fast, fresh, and hot).
+<br/>
+Using a CDN has advantages such as:
+<br/>
+- **Faster service**: Get your content faster from the nearest server
+- **Consistent quality**: Every server has identical content
+- **Reliability**: If one server is busy or down, others remain available
+- **Scaling capacity**: Local servers handle increased traffic without overwhelming the main server

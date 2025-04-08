@@ -1,43 +1,72 @@
 ---
 title: "HTML"
-description: "HyperText Markup Language - The standard markup language for documents designed to be displayed in a web browser."
-tags: ["frontend", "web", "markup"]
-datePublished: 2023-07-19
+description: "The basic building blocks of every webpage, like LEGO bricks for the internet."
+question: "What language is used to build the basic structure of every webpage?"
+hint: "This markup language uses tags like <p> and <div> to create the skeleton of a webpage, similar to building with LEGO bricks."
+analogy: "Think of HTML like building with LEGO bricks. Just like how you start with a big flat LEGO base plate (the <html> tag), then add walls (<body>), rooms (<div>), and decorations (<p>, <img>), HTML lets you build webpages piece by piece. Each LEGO brick has a specific way it connects to others, just like HTML tags have specific rules for how they work together. And just like how you can put small LEGO pieces inside bigger structures (like furniture inside a room), you can put small HTML elements inside bigger ones!"
+tags: ["web", "frontend", "fundamentals"]
+datePublished: 2023-07-25
 ---
 
 ## What is HTML?
 
-HTML (HyperText Markup Language) is the code used to structure a web page and its content. It consists of a series of elements, which you use to enclose, or wrap, different parts of the content to make it appear a certain way, or act a certain way.
+HTML (HyperText Markup Language) is like a set of LEGO bricks for building webpages. Just like how you use different LEGO pieces to build things, you use different HTML tags to create different parts of a webpage. It's the basic structure that holds everything together on the internet!
 
 ## Simple Analogy
 
-Think of HTML as the skeleton of a webpage. Just like your skeleton gives structure to your body, HTML provides the basic structure for everything you see on a website.
+Think of HTML like building with LEGO:
+<br/>
+- **The Base Plate** (`<html>`): The foundation everything sits on
+  - **The Building Area** (`<body>`): Where you build your actual LEGO creation
+  - **The Instructions** (`<head>`): Where you put information about your creation
+<br/>
+- **Building Pieces**:
+  - **Big Blocks** (`<div>`, `<section>`): Like LEGO walls that create rooms
+  - **Special Pieces**:
+    - `<h1>` to `<h6>`: Like different sized doorways
+    - `<p>`: Like furniture pieces for text
+    - `<img>`: Like LEGO pictures you can hang on walls
+    - `<a>`: Like LEGO doors that lead to other creations
+<br/>
+- **Connecting Pieces**:
+  - **Attributes**: Like special LEGO connectors
+    - `class`: Like using the same color bricks for similar things
+    - `id`: Like putting a unique sticker on one special brick
+    - `src`: Like instructions for where to find a special piece
+    - `href`: Like building a bridge to another LEGO creation
 
-*   `<h1>` is like the sign for the main entrance (the main heading).
-*   `<p>` is like a paragraph in a book (a block of text).
-*   `<img>` is like hanging a picture frame on the wall (displaying an image).
-*   `<a>` is like a doorway or a sign pointing to another room (a link).
+## Key Concepts
 
-CSS (like the paint, furniture, and decorations) makes the skeleton look good, and JavaScript (like electricity and plumbing) makes it functional and interactive, but HTML is the fundamental structure.
+- **Elements**: Complete LEGO pieces (a tag and its content, like `<p> Hello! </p>`)
+- **Tags**: The markers that show where elements start and end (like `<p>` and `</p>`)
+- **Nesting**: Putting elements inside other elements (like putting small LEGO pieces inside a big room)
+- **Content**: The actual stuff inside tags (like the LEGO people and furniture inside a room)
+- **Attributes**: Extra information about elements (like special features on LEGO pieces)
+- **Semantic HTML**: Using the right piece for the right job (like using door pieces for doors, not for windows)
 
 ## Example
 
 ```html
-<!DOCTYPE html>
+<!-- A simple LEGO house webpage -->
 <html>
-<head>
-  <title>My Simple Page</title>
-</head>
-<body>
-
-  <h1>Welcome to My Website!</h1>
-  
-  <p>This is a paragraph of text explaining something.</p>
-  
-  <img src="image.jpg" alt="A descriptive image">
-  
-  <a href="https://example.com">Click here to visit Example.com</a>
-
-</body>
+  <head>
+    <title>My LEGO House</title>
+  </head>
+  <body>
+    <!-- A big room -->
+    <div class="room">
+      <!-- A doorway -->
+      <h1>Welcome to My Room!</h1>
+      
+      <!-- Some furniture -->
+      <p>This is my awesome LEGO room.</p>
+      
+      <!-- A picture on the wall -->
+      <img src="lego-picture.jpg" alt="My LEGO creation">
+      
+      <!-- A door to another room -->
+      <a href="next-room.html">Go to next room</a>
+    </div>
+  </body>
 </html>
 ``` 

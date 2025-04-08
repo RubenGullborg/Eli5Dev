@@ -1,6 +1,9 @@
 ---
 title: "API"
 description: "Application Programming Interface - a method for different programs or components to communicate with each other."
+question: "What is the name for a set of rules that allows different software applications to communicate with each other?"
+hint: "Think of it as a middleman that helps different programs talk to each other."
+analogy: "An API is like a waiter at a restaurant. You (the application) give the waiter (the API) your order (request), and the waiter goes to the kitchen (server/database), fetches your food (data), and brings it back to your table, without you needing to know how the kitchen works inside."
 tags: ["backend", "integration", "communication"]
 datePublished: 2023-07-15
 ---
@@ -16,3 +19,23 @@ An API is like a waiter at a restaurant. You (the application) give the waiter (
 ## Example
 
 When you use a weather app on your phone, the app uses a weather API to request current weather data from an external server. The API handles the communication between the app and the weather data service.
+
+## Code 
+
+Below is a super simple example of what an API could be. In this case an object that exposes methods that allows you do some things.
+<br/>
+The fancy word for this is an “interface”. You don’t care how the methods are implemented or about the logic behind it, you just want to getData, writeData or doStuff.
+<br/>
+An api is a ready made tool, application, collection of tools that allow you do some things without having to worry about how that thing is done.
+<br/>
+```
+class Api {
+    constructor() {
+        …
+    }
+    getData(x){}
+    writeData(x, y) {}
+    doStuff(z) {}
+    …
+}
+```

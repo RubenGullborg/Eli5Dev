@@ -1,8 +1,9 @@
 ---
 title: "CI/CD"
-# Start of Selection
 description: "Continuous Integration and Continuous Deployment/Delivery are practices that automate software development through regular integration, testing, and delivery."
-# End of Selection
+question: "What development practice automatically builds, tests, and deploys code changes?"
+hint: "This approach helps catch bugs early by integrating code frequently and automating the deployment process."
+analogy: "Think of CI/CD like a modern assembly line in a car factory. Instead of building cars one at a time by hand, workers continuously add parts to the main car frame. If a part doesn't fit, they know immediately and can fix it. Once the car is assembled and tested, it's automatically delivered to customers."
 tags: ["devops", "automation", "workflow", "software-development"]
 datePublished: 2023-08-02
 ---
@@ -14,27 +15,21 @@ CI/CD stands for Continuous Integration and Continuous Deployment (or Continuous
 ## Simple Analogy
 
 Think of CI/CD like a modern assembly line in a car factory:
-
-- **Traditional Software Development (Pre-CI/CD)**: Like handcrafting individual cars from start to finish. Craftsmen work separately on different cars, only seeing others' work occasionally. When they finally try to combine parts, many compatibility issues arise, requiring significant rework.
-
+<br/>
+- **Traditional Software Development**: Like handcrafting individual cars from start to finish. Craftsmen work separately on different cars, only seeing others' work occasionally. When they finally try to combine parts, many compatibility issues arise.
+<br/>
 - **Continuous Integration (CI)**: Like an assembly line where workers continually add their parts to the main car frame. If a worker's part doesn't fit, they know immediately and can fix it before more work is added on top.
-
-- **Continuous Deployment/Delivery (CD)**: Like the quality control and delivery system after the assembly line:
-  - **Continuous Delivery**: Cars are fully assembled and tested, then parked in the lot ready for a human to do a final check and approve shipping to dealerships (manual approval for production)
-  - **Continuous Deployment**: Cars come off the assembly line, pass automated quality checks, and are immediately loaded onto trucks for delivery (automatic deployment to production)
-
-Just as a modern assembly line has quality checks at each station to catch defects early, CI/CD pipelines run tests after each code change, ensuring problems are caught and fixed immediately rather than accumulating for a big, painful integration later.
+<br/>
+- **Continuous Deployment (CD)**: Like the quality control and delivery system after the assembly line. Cars come off the assembly line, pass automated quality checks, and are immediately loaded onto trucks for delivery
 
 ## Key Concepts
 
 - **Continuous Integration**: Frequently merging code changes into a shared repository, with automated build and test processes
-- **Continuous Delivery**: Ensuring code is always in a deployable state through automated testing
 - **Continuous Deployment**: Automatically deploying all code changes to production after passing tests
 - **Pipeline**: The automated sequence of steps code changes go through (build, test, deploy)
 - **Automated Testing**: Running tests automatically to validate code changes
 - **Builds**: The process of converting source code into a runnable application
 - **Environments**: Different stages for the application (dev, test, staging, production)
-- **Infrastructure as Code**: Managing infrastructure through version-controlled configuration files
 
 ## Example
 
@@ -44,8 +39,6 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
     branches: [ main ]
 
 jobs:
@@ -63,9 +56,6 @@ jobs:
     - name: Install dependencies
       run: npm ci
       
-    - name: Run linting
-      run: npm run lint
-      
     - name: Run tests
       run: npm test
       
@@ -74,12 +64,9 @@ jobs:
       
   deploy:
     needs: build-and-test
-    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v2
-    
     - name: Deploy to production
       run: |
         echo "Deploying to production server..."

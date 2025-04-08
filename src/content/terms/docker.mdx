@@ -1,28 +1,31 @@
 ---
 title: "Docker"
 description: "An open-source tool that packages software into containers, which can run consistently across different environments."
+question: "What tool packages applications and their dependencies into portable containers?"
+hint: "This technology ensures applications run the same way everywhere by 'docking' everything they need into isolated environments."
+analogy: "Think of Docker like a lunchbox for your computer programs. Just like how your lunchbox keeps your sandwich, apple, and juice together in one neat package that you can take anywhere, Docker puts everything your program needs (code, settings, and tools) in one neat package called a container. This way, your program can work the same way no matter where you take it - just like how your sandwich tastes the same whether you eat it at school, at the park, or at home!"
 tags: ["devops", "containers", "virtualization", "infrastructure"]
 datePublished: 2023-07-27
 ---
 
 ## What is Docker?
 
-Docker is a platform that packages applications along with their dependencies into standardized units called containers. These containers are isolated from one another and from the host system, ensuring that applications run consistently regardless of the environment they're in.
+Docker is a platform that packages applications along with their dependencies (things they need to run properly) into standardized units called containers.
+<br/>
+These containers are isolated from one another and from the host system, ensuring that applications run consistently regardless of the environment they're in. This way we can make sure that a program can run on both a Windows machine and a Mac.
 
 ## Simple Analogy
 
-Think of Docker containers like shipping containers for cargo transport:
-
-- **Traditional Shipping**: Before standardized containers, goods were loaded individually onto ships, requiring unique handling procedures for each item, making transport slow and error-prone.
-
-- **Shipping Containers**: Now, goods are packed into standardized containers that can be easily stacked, moved, and transported across ships, trains, and trucks without unpacking.
-
-Similarly, Docker containers package everything an application needs—code, runtime, libraries, and system tools—into a standardized unit. Just as shipping containers can be transported from ship to train to truck without changing the contents, Docker containers can move from a developer's laptop to a test environment to production without changing the application.
+Think of Docker like a lunchbox for your computer programs:
+<br/>
+- **Traditional Software**: Like trying to make a sandwich at school without bringing any ingredients or tools. You'd need to find bread, butter, and fillings at school, and hope they have everything you need!
+<br/>
+- **Docker Containers**: Like having a lunchbox with everything you need for your sandwich - the bread, butter, fillings, and even a knife to spread with. You can take this lunchbox anywhere and make the same sandwich, because everything you need is right there inside it.
 
 ## Key Concepts
 
 - **Containers**: Lightweight, standalone packages that contain everything needed to run an application
-- **Images**: Read-only templates used to create containers, similar to a snapshot or blueprint
+- **Images**: Read-only templates used to create containers, similar to a blueprint
 - **Dockerfile**: A text file with instructions for building a Docker image
 - **Registry**: A repository for storing and distributing Docker images (like Docker Hub)
 - **Docker Compose**: A tool for defining and running multi-container applications

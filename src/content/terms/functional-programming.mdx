@@ -1,110 +1,61 @@
 ---
 title: "Functional Programming"
-description: "A programming paradigm that treats computations as the evaluation of mathematical functions and avoids changing state and mutable data."
+description: "A way of writing code that treats everything like a recipe - you put ingredients in, you get food out, but you never change the original ingredients."
+question: "What way of writing code is like following a recipe - you never change the original ingredients?"
+hint: "This style of programming creates new things instead of changing existing ones, like making a new sandwich instead of modifying someone else's."
+analogy: "Think of Functional Programming like making sandwiches with a special rule: 'Never change someone else's sandwich!' Instead, if you want a sandwich with extra cheese, you make a completely new sandwich. This way, everyone knows exactly what's in their sandwich, and there's no confusion about who added what. It's like having a recipe book where each recipe tells you exactly what you'll get when you follow it - no surprises!"
 tags: ["programming", "fundamentals", "paradigm", "software-design"]
 datePublished: 2023-08-11
 ---
 
 ## What is Functional Programming?
 
-Functional Programming (FP) is a programming paradigm that treats computation as the evaluation of mathematical functions and avoids changing state and mutable data. It emphasizes the application of functions, in contrast to the object-oriented programming paradigm, which emphasizes changes in state. In functional programming, functions are "first-class citizens," meaning they can be assigned to variables, passed as arguments, and returned from other functions.
+Functional Programming is like writing recipes for a kitchen where there's one important rule: never change the original ingredients!
+<br/>
+Instead of modifying things that already exist, you always create new things. It's like if you want a sandwich with extra cheese - instead of adding cheese to an existing sandwich, you make a whole new sandwich with cheese already in it.
 
 ## Simple Analogy
 
-Think of Functional Programming like a professional kitchen with a crucial twist:
-
-- **Traditional Imperative/OOP Programming**: Like a kitchen where chefs work by directly modifying ingredients in shared pots and pans. One chef starts cooking rice in a pot, another chef adds seasoning to the same pot later, and a third chef stirs it and adjusts the heat. Each chef is changing the shared state (the pot of rice), which makes it harder to track what happened if something goes wrong.
-
-- **Functional Programming**: Like a kitchen where each chef works with a strict rule: **"Never modify existing ingredients; always create new dishes."** In this kitchen:
-
-  - Chefs don't modify ingredients in existing pots. Instead, they take ingredients, prepare something, and put the result in a new container.
-  - If Chef A makes rice and Chef B needs seasoned rice, Chef B takes the completed rice (without changing Chef A's rice), adds seasonings, and puts the result in a new dish.
-  - Recipes are precise formulas where the same ingredients and steps always produce identical results.
-  - Recipes can be shared among chefs, combined, or used as parts of larger recipes.
-
-This approach has several benefits:
-
-- **Predictability**: If something goes wrong with the seasoned rice, the original rice is still intact to inspect and start over with.
-- **Parallelization**: Multiple chefs can prepare different dishes simultaneously without worrying about interfering with each other's work.
-- **Reproducibility**: Since no one modifies existing ingredients, the same recipe and ingredients will consistently produce the same result.
-- **Testability**: Each "recipe" (function) can be tested independently, ensuring it produces the correct output for the given input.
-
-In functional programming, data (ingredients) is immutable, functions (recipes) don't have side effects, and computation is treated as a series of transformations on data (preparing new dishes from existing ingredients).
+Think of Functional Programming like a special kitchen with one rule:
+<br/>
+- **Regular Programming**: Like a kitchen where everyone shares ingredients and changes them. If someone starts making a sandwich, another person might add more cheese, and a third person might add lettuce. Pretty soon, no one knows exactly what's in the sandwich!
+<br/>
+- **Functional Programming**: Like a kitchen where everyone follows one rule: **"Never change someone else's food!"**
+  - If you want to add cheese to a sandwich, you make a completely new sandwich with cheese in it
+  - The original sandwich stays exactly the same
+  - Each recipe always makes the same food when you use the same ingredients
 
 ## Key Concepts
 
-- **Pure Functions**: Functions that always produce the same output for the same input and have no side effects
-- **Immutability**: Once created, data cannot be changed
-- **First-Class Functions**: Functions can be assigned to variables, passed as arguments, and returned from other functions
-- **Higher-Order Functions**: Functions that take other functions as arguments or return functions
-- **Function Composition**: Building complex functions by combining simpler functions
-- **Referential Transparency**: Expressions can be replaced with their values without changing the program's behavior
-- **Recursion**: A function solving a problem by calling a simpler version of itself
-- **Lazy Evaluation**: Delaying computation until the result is needed
-- **Closures**: Functions that capture variables from their surrounding context
+- **Pure Functions**: Like recipes that always make the same food when you use the same ingredients
+- **Immutability**: Once you make something, you never change it - you always make something new instead
+- **First-Class Functions**: Being able to use recipes as ingredients in other recipes
+- **Function Composition**: Combining simple recipes to make more complicated ones
 
 ## Example
 
 ```javascript
-// Imperative approach (modifying state)
-function imperative_doubleArrayElements(arr) {
-  for (let i = 0; i < arr.length; i++) {
-    arr[i] = arr[i] * 2; // Directly modifies the original array
-  }
-  return arr;
+// Regular way (changing things)
+function addCheeseToSandwich(sandwich) {
+  sandwich.cheese = true;  // Changes the original sandwich
+  return sandwich;
 }
 
-let numbers = [1, 2, 3, 4];
-imperative_doubleArrayElements(numbers);
-// Now numbers is [2, 4, 6, 8] - the original array has been modified
+let mySandwich = { bread: true, lettuce: true };
+addCheeseToSandwich(mySandwich);
+// Now mySandwich has cheese added to it
 
 
-// Functional approach
-function double(x) {
-  return x * 2; // Pure function - only transforms input to output
+// Functional way (making new things)
+function makeSandwichWithCheese(sandwich) {
+  return {
+    ...sandwich,  // Copy everything from the original sandwich
+    cheese: true  // Add cheese to the new sandwich
+  };
 }
 
-function functional_doubleArrayElements(arr) {
-  return arr.map(double); // Returns a new array, original remains unchanged
-}
-
-let originalNumbers = [1, 2, 3, 4];
-let doubledNumbers = functional_doubleArrayElements(originalNumbers);
-// originalNumbers is still [1, 2, 3, 4]
-// doubledNumbers is [2, 4, 6, 8]
-
-
-// Function composition
-const add = x => y => x + y;
-const multiply = x => y => x * y;
-
-// Create a new function by composing other functions
-const compose = (f, g) => x => f(g(x));
-
-const addOneAndDouble = compose(multiply(2), add(1));
-console.log(addOneAndDouble(3)); // -> ((3 + 1) * 2) = 8
-
-
-// Higher-order functions
-function applyOperationToArray(arr, operation) {
-  return arr.map(operation);
-}
-
-const subtract5 = x => x - 5;
-const numbers2 = [10, 15, 20, 25];
-
-const results = applyOperationToArray(numbers2, subtract5);
-// results is [5, 10, 15, 20], numbers2 is unchanged
-
-
-// Recursion instead of loops
-function factorial(n) {
-  // Base case
-  if (n <= 1) return 1;
-  
-  // Recursive case
-  return n * factorial(n - 1);
-}
-
-console.log(factorial(5)); // -> 120
+let originalSandwich = { bread: true, lettuce: true };
+let newSandwich = makeSandwichWithCheese(originalSandwich);
+// originalSandwich stays the same
+// newSandwich is a new sandwich with cheese
 ``` 
