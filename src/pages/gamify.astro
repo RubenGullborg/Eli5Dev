@@ -1,0 +1,247 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+// Fetch all terms
+const allTerms = await getCollection("terms");
+
+// Prepare terms for the game
+const gameTerms = allTerms.map((term) => ({
+  id: term.slug,
+  title: term.data.title,
+  description: term.data.description,
+  question: term.data.question || term.data.analogy || term.data.description,
+  hint: term.data.hint || "",
+  tags: term.data.tags || [],
+}));
+---
+
+<Layout title="Guess the Term - Eli5Dev">
+  <main class="container mx-auto px-4 py-8">
+    <div class="max-w-4xl mx-auto">
+      <div class="mb-8">
+        <a
+          href="/"
+          class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline mb-4 group"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-4 w-4 mr-1 transform transition-transform group-hover:-translate-x-1"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+          </svg>
+          Back to Home
+        </a>
+        <h1
+          class="text-3xl md:text-4xl font-bold mb-2 text-gray-900 dark:text-white"
+        >
+          Guess the Term
+        </h1>
+        <p class="text-lg text-gray-600 dark:text-gray-400">
+          Test your knowledge by guessing technical terms from their
+          descriptions or analogies.
+        </p>
+      </div>
+
+      <!-- Game Container -->
+      <div
+        class="bg-white dark:bg-gray-800 p-6 md:p-8 rounded-lg shadow-lg mb-8"
+      >
+        <div id="gameContainer">
+          <!-- Game content will be inserted here by JavaScript -->
+          <div class="text-center py-12">
+            <h2
+              class="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-200"
+            >
+              Loading game...
+            </h2>
+          </div>
+        </div>
+      </div>
+
+      <!-- Game Controls -->
+      <div class="flex justify-center space-x-4 mb-8">
+        <button
+          id="newQuestionBtn"
+          class="px-6 py-3 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 text-white font-medium rounded-lg transition-colors"
+        >
+          New Question
+        </button>
+        <button
+          id="toggleHintBtn"
+          class="px-6 py-3 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 font-medium rounded-lg transition-colors"
+        >
+          Show Hint
+        </button>
+      </div>
+
+      <!-- Score Display -->
+      <div class="text-center">
+        <div
+          class="inline-block bg-gray-100 dark:bg-gray-700 px-6 py-3 rounded-lg"
+        >
+          <span class="text-gray-600 dark:text-gray-300">Score: </span>
+          <span
+            id="scoreDisplay"
+            class="font-bold text-blue-600 dark:text-blue-400">0</span
+          >
+          <span class="text-gray-600 dark:text-gray-300"> / </span>
+          <span
+            id="totalQuestions"
+            class="font-bold text-gray-800 dark:text-gray-200">0</span
+          >
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<script define:vars={{ gameTerms }}>
+  // Game state
+  let currentTerm = null;
+  let score = 0;
+  let totalQuestions = 0;
+  let hintShown = false;
+
+  // DOM elements
+  const gameContainer = document.getElementById("gameContainer");
+  const newQuestionBtn = document.getElementById("newQuestionBtn");
+  const toggleHintBtn = document.getElementById("toggleHintBtn");
+  const scoreDisplay = document.getElementById("scoreDisplay");
+  const totalQuestionsDisplay = document.getElementById("totalQuestions");
+
+  // Initialize the game
+  function initGame() {
+    newQuestionBtn?.addEventListener("click", loadNewQuestion);
+    toggleHintBtn?.addEventListener("click", toggleHint);
+    loadNewQuestion();
+  }
+
+  // Load a new question
+  function loadNewQuestion() {
+    // Reset hint state
+    hintShown = false;
+    toggleHintBtn.textContent = "Show Hint";
+
+    // Select a random term
+    const randomIndex = Math.floor(Math.random() * gameTerms.length);
+    currentTerm = gameTerms[randomIndex];
+
+    // Update the game container
+    if (gameContainer) {
+      gameContainer.innerHTML = `
+        <div class="mb-8">
+          <h2 class="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">What is this term?</h2>
+          <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg mb-6">
+            <p class="text-gray-800 dark:text-gray-200 text-lg">${currentTerm.question}</p>
+          </div>
+          <div id="hintContainer" class="hidden bg-blue-50 dark:bg-blue-900/30 p-4 rounded-lg mb-6">
+            <p class="text-blue-800 dark:text-blue-300">
+              <span class="font-semibold">Hint:</span> ${currentTerm.hint || `This term is related to: ${currentTerm.tags.join(", ")}`}
+            </p>
+          </div>
+          <div class="space-y-3">
+            <input type="text" id="answerInput" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white" placeholder="Enter your guess...">
+            <button id="submitAnswerBtn" class="w-full px-4 py-2 bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-800 text-white font-medium rounded-lg transition-colors">
+              Submit Answer
+            </button>
+          </div>
+        </div>
+      `;
+
+      // Add event listener to the submit button
+      const submitAnswerBtn = document.getElementById("submitAnswerBtn");
+      const answerInput = document.getElementById("answerInput");
+
+      submitAnswerBtn?.addEventListener("click", checkAnswer);
+      answerInput?.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+          checkAnswer();
+        }
+      });
+    }
+  }
+
+  // Check the answer
+  function checkAnswer() {
+    const answerInput = document.getElementById("answerInput");
+    const userAnswer = answerInput?.value.trim().toLowerCase();
+    const correctAnswer = currentTerm.title.toLowerCase();
+
+    if (!userAnswer) return;
+
+    // Increment total questions
+    totalQuestions++;
+    totalQuestionsDisplay.textContent = totalQuestions;
+
+    // Check if the answer is correct
+    const isCorrect = userAnswer === correctAnswer;
+
+    // Update score if correct
+    if (isCorrect) {
+      score++;
+      scoreDisplay.textContent = score;
+    }
+
+    // Show result
+    if (gameContainer) {
+      gameContainer.innerHTML = `
+        <div class="text-center py-8">
+          <div class="mb-6">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full ${isCorrect ? "bg-green-100 dark:bg-green-900" : "bg-red-100 dark:bg-red-900"} mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 ${isCorrect ? "text-green-600 dark:text-green-400" : "text-red-600 dark:text-red-400"}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                ${
+                  isCorrect
+                    ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />'
+                    : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />'
+                }
+              </svg>
+            </div>
+            <h2 class="text-2xl font-bold mb-2 ${isCorrect ? "text-green-600 dark:text-green-400" : "text-red-600 dark:text-red-400"}">
+              ${isCorrect ? "Correct!" : "Incorrect"}
+            </h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">
+              ${
+                isCorrect
+                  ? "Great job! You correctly identified the term."
+                  : `The correct answer was: <span class="font-semibold text-gray-800 dark:text-gray-200">${currentTerm.title}</span>`
+              }
+            </p>
+            <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg mb-6">
+              <p class="text-gray-800 dark:text-gray-200">
+                <span class="font-semibold">${currentTerm.title}</span>: ${currentTerm.description}
+              </p>
+            </div>
+            <button id="nextQuestionBtn" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 text-white font-medium rounded-lg transition-colors">
+              Next Question
+            </button>
+          </div>
+        </div>
+      `;
+
+      // Add event listener to the next question button
+      const nextQuestionBtn = document.getElementById("nextQuestionBtn");
+      nextQuestionBtn?.addEventListener("click", loadNewQuestion);
+    }
+  }
+
+  // Toggle hint
+  function toggleHint() {
+    const hintContainer = document.getElementById("hintContainer");
+    if (hintContainer) {
+      hintContainer.classList.toggle("hidden");
+      hintShown = !hintShown;
+      toggleHintBtn.textContent = hintShown ? "Hide Hint" : "Show Hint";
+    }
+  }
+
+  // Initialize the game when the page loads
+  document.addEventListener("DOMContentLoaded", initGame);
+</script>

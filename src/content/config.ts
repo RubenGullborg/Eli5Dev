@@ -5,6 +5,9 @@ const termsCollection = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
+    question: z.string().optional(),
+    hint: z.string().optional(),
+    analogy: z.string().optional(),
     tags: z.array(z.string()).optional(),
     datePublished: z.date().optional(),
     dateUpdated: z.date().optional(),
