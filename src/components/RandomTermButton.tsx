@@ -49,7 +49,7 @@ export default function RandomTermButton({ terms }: RandomTermButtonProps) {
   return (
     <button
       onClick={getRandomTerm}
-      className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium px-6 py-4 rounded-lg flex items-center justify-center transition-colors duration-200 text-lg shadow-md hover:shadow-lg"
+      className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-purple-600 transition-all text-white font-medium px-6 py-4 rounded-lg flex items-center justify-center text-lg shadow-md transform duration-200 ease-in-out hover:scale-105"
     >
       <svg
         className="w-5 h-5 mr-2"
