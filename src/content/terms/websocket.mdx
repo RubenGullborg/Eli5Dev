@@ -1,19 +1,25 @@
 ---
 title: "WebSocket"
-description: "A communication protocol that provides full-duplex communication channels over a single TCP connection."
+description: "A way for websites and servers to have a continuous conversation, like a phone call instead of sending letters back and forth."
+question: "How can websites and servers have a continuous conversation without constantly sending new requests?"
+hint: "This technology creates a persistent connection between a website and a server, allowing them to exchange messages instantly."
+analogy: "Think of WebSockets like a phone call versus sending letters. With regular web requests (HTTP), it's like sending letters through the mail - you write a letter (request), send it, wait for a response, and then have to send another letter for the next piece of information. With WebSockets, it's like having a phone call - once you're connected, both people can talk whenever they want without having to dial the number again. The connection stays open until someone hangs up, making communication much faster and more efficient."
 tags: ["networking", "web", "protocol", "advanced"]
 datePublished: 2023-07-24
 ---
 
 ## What is WebSocket?
 
-WebSocket is a communication protocol that enables interactive, real-time communication between a client (typically a web browser) and a server. Unlike HTTP, which is request-response based, WebSockets allow for persistent, two-way connections where both client and server can send data at any time without the overhead of establishing a new connection each time.
+WebSocket is a technology that lets websites and servers have a continuous conversation.
+<br/> <br/>Unlike regular web requests where you have to ask for information each time, WebSockets create a persistent connection that stays open, allowing both sides to send messages whenever they need to.
 
 ## Simple Analogy
 
-Think of HTTP as sending letters through postal mail. Each time you want to communicate, you have to write a letter, put it in an envelope, mail it, and wait for a response. 
-
-WebSockets, on the other hand, are like having a phone call. Once the call is established, both parties can speak whenever they need to without having to redial the number each time. The connection stays open until someone hangs up.
+Think of WebSockets like different ways of communicating:
+<br/>
+- **Regular Web Requests (HTTP)**: Like sending letters through the mail. Each time you want to communicate, you have to write a letter, put it in an envelope, mail it, and wait for a response. This is slow and inefficient if you need to exchange lots of information quickly.
+<br/>
+- **WebSockets**: Like having a phone call. Once the call is established, both parties can speak whenever they need to without having to redial the number each time. The connection stays open until someone hangs up.
 
 ## Key Concepts
 

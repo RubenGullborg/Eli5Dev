@@ -1,170 +1,49 @@
 ---
 title: "HTTP Status Codes"
-# Start of Selection
-description: "Standardized response codes that web servers send to clients to indicate the result of a request, organized into five classes."
-# End of Selection
+description: "Special messages that websites send back to tell you if your request worked or not, like getting a thumbs up or thumbs down."
+question: "What are the special messages websites send to tell you if something worked or not?"
+hint: "These are like getting a thumbs up (200), a 'go somewhere else' (301), or a 'sorry, can't do that' (404) message from a website."
+analogy: "Think of HTTP status codes like getting responses from a friend when you ask them for something. When you ask 'Can I borrow your toy?', your friend might say 'Yes, here it is!' (200 OK), 'I don't have that toy anymore, but my sister does' (301 Moved), 'Sorry, I don't have that toy' (404 Not Found), or 'I'm too busy playing right now' (503 Busy). These codes are just quick ways for websites to tell you what happened with your request!"
 tags: ["web", "http", "backend", "api"]
 datePublished: 2023-08-16
 ---
 
 ## What are HTTP Status Codes?
 
-HTTP status codes are standardized three-digit numbers returned by a web server in response to a client's request. These codes indicate whether a specific HTTP request has been successfully completed, redirected, encountered a client or server error, or requires further action. They are grouped into five classes, with each class handling a specific category of response.
+HTTP status codes are like quick messages that websites send back to tell you what happened with your request.
+<br/>
+They're three-digit numbers that tell you if everything worked (200s), if you need to go somewhere else (300s), if you made a mistake (400s), or if the website had a problem (500s).
 
 ## Simple Analogy
 
-Think of HTTP status codes like the responses you might get when ordering food at a restaurant:
+Think of HTTP status codes like getting responses from a friend:
 
-### 1xx (Informational): "I heard you, working on it..."
-- **100 Continue**: Like the waiter saying "I've received the first part of your order, please continue with the rest."
-- **101 Switching Protocols**: Like the waiter saying "I'll need to bring you special utensils for that dish."
+### 2xx (Success): "Yes, I can help!"
+- **200 OK**: "Here's what you asked for!"
+- **201 Created**: "I just made this new thing for you!"
+- **204 No Content**: "I did what you asked, but there's nothing to give back."
 
-### 2xx (Successful): "Here's your order, enjoy!"
-- **200 OK**: Like the waiter bringing exactly what you ordered. Complete success!
-- **201 Created**: Like the chef creating a new dish based on your special request.
-- **204 No Content**: Like the waiter acknowledging your request for no more water, without bringing anything.
+### 3xx (Redirect): "You need to ask someone else..."
+- **301 Moved**: "I don't have that anymore, but my friend does. Go ask them."
+- **302 Found**: "I have it, but it's over there right now. Go look there."
 
-### 3xx (Redirection): "You'll need to go elsewhere..."
-- **301 Moved Permanently**: Like being told "That item is no longer offered here, but it's permanently available at our other location."
-- **302 Found (Temporary Redirect)**: Like being told "Today only, we're serving that dish at our pop-up location down the street."
-- **304 Not Modified**: Like asking if the soup has changed since your last visit, and being told "No, it's the same recipe."
+### 4xx (Client Error): "You made a mistake..."
+- **400 Bad Request**: "I don't understand what you're asking for."
+- **401 Unauthorized**: "You need to tell me who you are first."
+- **403 Forbidden**: "I know who you are, but you're not allowed to have this."
+- **404 Not Found**: "I don't have what you're looking for."
+- **418 I'm a Teapot**: "I'm a teapot, I can't make coffee!" (This is a real joke code!)
 
-### 4xx (Client Error): "You made a mistake with your order..."
-- **400 Bad Request**: Like the waiter saying "I can't understand your order; it doesn't make sense."
-- **401 Unauthorized**: Like being asked to show ID before ordering an alcoholic drink.
-- **403 Forbidden**: Like being told "Sorry, the kitchen is off-limits to customers, even if you know where it is."
-- **404 Not Found**: Like ordering a dish that isn't on the menu and never has been.
-- **405 Method Not Allowed**: Like trying to use chopsticks at a restaurant that only allows fork and knife.
-- **418 I'm a Teapot**: Like asking a teapot to make coffee. (This is an actual joke status code from an April Fools' RFC!)
-
-### 5xx (Server Error): "We made a mistake with your order..."
-- **500 Internal Server Error**: Like the kitchen experiencing an unexpected problem while making your order.
-- **501 Not Implemented**: Like ordering a flambe dish at a restaurant that hasn't trained its staff on open-flame cooking yet.
-- **502 Bad Gateway**: Like your waiter getting wrong information from the kitchen.
-- **503 Service Unavailable**: Like arriving at a restaurant that's temporarily closed due to being over capacity.
-- **504 Gateway Timeout**: Like your waiter going to the kitchen for your order, but never coming back.
-
-Just as restaurant responses help you understand what's happening with your meal, HTTP status codes help developers understand what's happening with their web requests, whether everything is fine, something needs to be done differently, or there's a problem that needs to be fixed.
+### 5xx (Server Error): "I made a mistake..."
+- **500 Internal Server Error**: "Something went wrong on my end, sorry!"
+- **502 Bad Gateway**: "I asked someone else for help, but they gave me bad information."
+- **503 Service Unavailable**: "I'm too busy right now, try again later."
+- **504 Gateway Timeout**: "I asked someone else for help, but they took too long to answer."
 
 ## Key Concepts
 
-- **Status Code Classes**:
-  - 1xx: Informational – Request received, continuing process
-  - 2xx: Success – Request successfully received, understood, and accepted
-  - 3xx: Redirection – Further action needs to be taken to complete the request
-  - 4xx: Client Error – Request contains bad syntax or cannot be fulfilled
-  - 5xx: Server Error – Server failed to fulfill a valid request
-
-- **Common Status Codes**:
-  - **200 OK**: Standard success response
-  - **201 Created**: Resource has been created
-  - **204 No Content**: Request succeeded but no content returned
-  - **301/302**: Permanent/temporary redirect
-  - **400 Bad Request**: Server cannot process due to client error
-  - **401 Unauthorized**: Authentication required
-  - **403 Forbidden**: Server refuses to authorize
-  - **404 Not Found**: Resource not found
-  - **500 Internal Server Error**: Generic server error
-
-## Example
-
-```javascript
-// Express.js example showing common status codes
-const express = require('express');
-const app = express();
-app.use(express.json());
-
-// 200 OK - Success
-app.get('/users', (req, res) => {
-  const users = [
-    { id: 1, name: 'Alice' },
-    { id: 2, name: 'Bob' }
-  ];
-  res.status(200).json(users);
-});
-
-// 201 Created - Resource created successfully
-app.post('/users', (req, res) => {
-  // Assume we created a new user with the provided data
-  const newUser = req.body;
-  newUser.id = 3; // Assigned by the system
-  
-  res.status(201).json({
-    message: 'User created successfully',
-    user: newUser
-  });
-});
-
-// 204 No Content - Success but nothing to return
-app.delete('/users/:id', (req, res) => {
-  // Assume we successfully deleted the user
-  res.status(204).send();
-});
-
-// 400 Bad Request - Client sent invalid data
-app.post('/validate', (req, res) => {
-  if (!req.body.email) {
-    return res.status(400).json({
-      error: 'Email is required'
-    });
-  }
-  // Process valid request...
-  res.status(200).json({ valid: true });
-});
-
-// 401 Unauthorized - Authentication required
-app.get('/account', (req, res) => {
-  const authToken = req.headers.authorization;
-  
-  if (!authToken) {
-    return res.status(401).json({
-      error: 'Authentication required'
-    });
-  }
-  // Process authenticated request...
-  res.status(200).json({ account: 'account details' });
-});
-
-// 403 Forbidden - User doesn't have permission
-app.get('/admin', (req, res) => {
-  const user = getUserFromToken(req.headers.authorization);
-  
-  if (!user.isAdmin) {
-    return res.status(403).json({
-      error: 'You do not have permission to access this resource'
-    });
-  }
-  // Process admin request...
-  res.status(200).json({ adminData: 'sensitive data' });
-});
-
-// 404 Not Found - Resource doesn't exist
-app.get('/users/:id', (req, res) => {
-  const user = findUser(req.params.id);
-  
-  if (!user) {
-    return res.status(404).json({
-      error: `User with ID ${req.params.id} not found`
-    });
-  }
-  // Return found user
-  res.status(200).json(user);
-});
-
-// 500 Internal Server Error - Something went wrong on the server
-app.get('/error-prone', (req, res) => {
-  try {
-    // Something that might fail
-    throw new Error('Database connection failed');
-  } catch (error) {
-    console.error('Server error:', error);
-    res.status(500).json({
-      error: 'An unexpected error occurred'
-    });
-  }
-});
-
-app.listen(3000, () => {
-  console.log('Server running on port 3000');
-});
-``` 
+- **2xx Codes**: Everything worked! (Success)
+- **3xx Codes**: You need to go somewhere else (Redirect)
+- **4xx Codes**: You made a mistake (Client Error)
+- **5xx Codes**: The website made a mistake (Server Error)
+- **Common Codes**: 200 (OK), 404 (Not Found), 500 (Server Error)

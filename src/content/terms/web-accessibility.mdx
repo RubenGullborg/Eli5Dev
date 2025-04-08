@@ -1,100 +1,60 @@
 ---
 title: "Web Accessibility"
-description: "Practice that ensures websites and applications can be used by all people, regardless of their abilities or disabilities."
-tags: ["frontend", "ux", "best-practices", "inclusive-design"]
-datePublished: 2023-08-07
+description: "Making websites work for everyone, including people who use different ways to access the internet, like screen readers or keyboard navigation."
+question: "How can we make websites work for everyone, no matter how they access the internet?"
+hint: "This practice ensures websites are usable by people with different abilities and needs, like those who can't see or use a mouse."
+analogy: "Think of web accessibility like making a building accessible to everyone. Just as a building needs ramps, elevators, and wide doorways for people who use wheelchairs, websites need special features for people who use different tools to access them. It's like having multiple ways to enter a building - some people might use the stairs, others might need an elevator, and some might need a ramp. Web accessibility ensures everyone can use the website in the way that works best for them."
+tags: ["web", "accessibility", "inclusive-design", "advanced"]
+datePublished: 2023-07-24
 ---
 
 ## What is Web Accessibility?
 
-Web Accessibility (often abbreviated as a11y) refers to the practice of designing and developing websites and applications that can be used by everyone, regardless of disabilities or impairments. It aims to remove barriers that might prevent people with visual, auditory, motor, or cognitive disabilities from interacting with or accessing web content effectively.
+Web accessibility means making websites that everyone can use, no matter how they access the internet. This includes people who:
+<br/>
+- Can't see and use screen readers
+- Can't use a mouse and navigate with a keyboard
+- Have trouble reading or understanding content
+- Have difficulty hearing audio content
 
 ## Simple Analogy
 
-Think of web accessibility like designing a building:
+Think of web accessibility like making a building accessible to everyone:
 
-- **Inaccessible Website**: Like a building with only stairs at the entrance, narrow doorways, and high shelves. It works perfectly for many people, but completely excludes others who use wheelchairs, have limited mobility, or are shorter in height.
+<br/>
+- **Ramps and Elevators**: Like having alternative ways to navigate a website (keyboard navigation, screen readers)
 
-- **Accessible Website**: Like a thoughtfully designed building with:
-  - Both stairs and ramps at entrances (multiple ways to navigate)
-  - Elevators with audible announcements and braille buttons (screen reader support)
-  - Wider doorways and clear pathways (simple, uncluttered layouts)
-  - Handles that can be operated with a closed fist (keyboard navigation)
-  - Signs with large, high-contrast text and braille (proper text contrast and size)
-  - Emergency information conveyed through both visual and audible means (multiple sensory channels)
+- **Clear Signs**: Like having clear headings and labels on a website
 
-Just as building codes and regulations ensure physical spaces are usable by everyone, web accessibility standards like WCAG (Web Content Accessibility Guidelines) provide guidelines to make digital spaces inclusive. And like accessible architecture, making a website accessible often improves the experience for all users, not just those with disabilities.
+- **Wide Doorways**: Like having text that can be made bigger or content that works on different screen sizes
+
+- **Braille Signs**: Like having text descriptions for images
 
 ## Key Concepts
 
-- **Perceivable**: Information must be presentable in ways all users can perceive
-- **Operable**: User interface components must be navigable by all users
-- **Understandable**: Information and interface operation must be understandable
-- **Robust**: Content must be robust enough to work with various user agents and assistive technologies
-- **Alternative Text**: Descriptions for images for screen reader users
-- **Keyboard Navigation**: Ability to use all features without a mouse
-- **Color Contrast**: Sufficient difference between text and background colors
-- **Screen Reader Compatibility**: Proper semantic markup to support assistive technologies
-- **ARIA (Accessible Rich Internet Applications)**: Attributes to enhance accessibility of dynamic content
+<br/>
+- **WCAG Guidelines**: Standards for making websites accessible
+
+- **Screen Readers**: Software that reads website content aloud
+
+- **Keyboard Navigation**: Using only a keyboard to use a website
+
+- **Alt Text**: Text descriptions for images
+
+- **ARIA**: Special attributes that help screen readers understand website content
 
 ## Example
 
 ```html
-<!-- Bad Example (Inaccessible) -->
-<div class="button" style="background: green; color: darkgreen;" onclick="submitForm()">
-  <img src="submit-icon.png"> SUBMIT
-</div>
+<!-- Bad: Image without description -->
+<img src="dog.jpg">
 
-<!-- Good Example (Accessible) -->
-<button 
-  type="submit" 
-  class="submit-button" 
-  aria-label="Submit form"
->
-  <img src="submit-icon.png" alt="" aria-hidden="true">
-  <span>Submit</span>
-</button>
+<!-- Good: Image with description -->
+<img src="dog.jpg" alt="A brown dog playing with a red ball in a park">
 
-<style>
-  .submit-button {
-    background-color: #008000;
-    color: #ffffff; /* High contrast between text and background */
-    padding: 12px 20px;
-    border-radius: 4px;
-    font-size: 1rem;
-    font-weight: bold;
-  }
-  
-  /* Focus state for keyboard navigation */
-  .submit-button:focus {
-    outline: 3px solid #0066cc;
-    outline-offset: 2px;
-  }
-  
-  /* Ensure click target is large enough */
-  .submit-button {
-    min-width: 44px;
-    min-height: 44px;
-  }
-</style>
+<!-- Bad: Button without clear purpose -->
+<button>Click here</button>
 
-<!-- Accessible form with proper labels -->
-<form>
-  <div class="form-group">
-    <label for="name">Name</label>
-    <input 
-      type="text" 
-      id="name" 
-      name="name" 
-      aria-required="true"
-      aria-describedby="name-error"
-    >
-    <div id="name-error" class="error-message" role="alert"></div>
-  </div>
-  
-  <!-- Skip navigation link for keyboard users -->
-  <a href="#main-content" class="skip-link">
-    Skip to main content
-  </a>
-</form>
+<!-- Good: Button with clear purpose -->
+<button aria-label="Submit form">Submit</button>
 ``` 
