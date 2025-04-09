@@ -1,0 +1,42 @@
+---
+title: "Proxy"
+description: "An intermediary server that sits between a client and the destination server, forwarding requests and responses between them."
+question: "What do we call a server that acts as a middleman between your computer and the websites you visit?"
+hint: "It can hide your identity, filter content, or speed up your browsing by saving copies of websites."
+analogy: "A proxy is like having a personal assistant who runs errands for you. Instead of going to the store yourself (connecting directly to a website), you ask your assistant (the proxy) to go for you. The store only sees your assistant, not you. Your assistant can also make decisions about your requests - like saying 'no' to stores you're not allowed to visit, or quickly giving you items they already picked up earlier."
+tags: ["networking", "security", "web"]
+datePublished: 2023-08-15
+---
+
+## What is a Proxy?
+
+A proxy is a server that sits between your computer and the internet.
+<br/>
+When you try to visit a website, your request goes to the proxy first, and then the proxy forwards it to the actual website. The website sends its response back to the proxy, which then sends it to you.
+
+## Simple Analogy
+
+A proxy is like a messenger between you and someone else. Instead of talking directly to a person, you tell the messenger what to say, the messenger delivers your message, gets a response, and brings it back to you. 
+<br/>
+An advantage of this is that the other person only knows they talked to the messenger, not to you directly.
+
+## Types of Proxies
+
+- **Forward Proxy**: Acts on behalf of clients (like you) to access servers
+- **Reverse Proxy**: Acts on behalf of servers to handle client requests
+- **Transparent Proxy**: Doesn't modify requests or responses
+- **Anonymous Proxy**: Hides your identity by not passing your IP address
+- **Caching Proxy**: Stores copies of responses to deliver them faster next time
+
+## Common Uses
+
+- **Privacy**: Hiding your real IP address and location
+- **Access Control**: Blocking certain websites in schools or workplaces
+- **Caching**: Saving copies of websites to make them load faster
+- **Security**: Adding an extra layer between you and potentially harmful websites
+- **Bypassing Restrictions**: Accessing content that's blocked in your region
+
+## Example
+
+When schools want to prevent students from accessing certain websites, they often set up a proxy server. 
+All student internet traffic goes through this proxy, which checks each request against a list of allowed and blocked sites before either forwarding the request or blocking it.

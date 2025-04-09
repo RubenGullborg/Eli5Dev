@@ -1,0 +1,34 @@
+---
+title: "Threads"
+description: "Individual sequences of programmed instructions that can be executed independently while sharing resources with other threads."
+question: "What do we call the small parts of a program that can run at the same time within the same application?"
+hint: "They allow a program to do multiple things at once, like chewing gum while walking."
+analogy: "Threads are like workers in a restaurant kitchen. All workers share the same kitchen space and tools (the process memory), but each worker (thread) can independently prepare different dishes at the same time, making the kitchen more efficient than if only one person was cooking everything."
+tags: ["programming", "operating-systems", "concurrency"]
+datePublished: 2023-08-05
+---
+
+## What are Threads?
+
+Threads are like mini-programs that run inside a bigger program. 
+<br/>
+They let a computer work on multiple parts of a task at the same time, instead of having to finish one thing before starting another.
+
+## Simple Analogy
+
+Imagine you're coloring a picture with friends. Each person (thread) can color a different part of the same picture (program) at the same time.
+
+You're all working on the same picture and sharing the same box of crayons (resources), but you can work independently on your sections.
+
+## Key Concepts
+
+- **Process**: A process is like an entire restaurant, while threads are like the workers inside. One process can have many threads.
+- **Shared Resources**: All threads within a process share the same memory space and resources, like crayons, erasers, canvas...
+- **Multithreading**: Using multiple threads to improve performance, like having many people helping eachother painting a picture.
+- **Thread Synchronization**: Making sure threads don't interfere with each other, like making sure artists don't try to use the same crayons or paint the same spot, at the same time.
+
+## Example
+
+When you use a web browser, it might use one thread to display the webpage, another thread to download images, and another thread to handle your clicks and typing. This is why you can scroll through a page while images are still loading.
+
+

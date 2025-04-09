@@ -1,0 +1,50 @@
+---
+title: "Firewall"
+description: "A network security device or software that monitors and filters incoming and outgoing network traffic based on predetermined security rules."
+question: "What security system acts as a barrier between a trusted network and an untrusted network to block unauthorized access?"
+hint: "Its name comes from construction, where it refers to a wall designed to prevent fire from spreading."
+analogy: "A firewall is like a security guard at the entrance of a building. The guard checks everyone's ID (data packets) coming in and going out. The guard has a list of who's allowed in and what they're allowed to bring (rules). Some visitors are always welcome, some are never allowed in, and some can enter only during specific hours or if they meet certain conditions. The guard stops suspicious people and contraband from entering, while letting authorized people and items pass through freely."
+tags: ["security", "networking", "infrastructure"]
+datePublished: 2023-09-20
+---
+
+## What is a Firewall?
+
+A firewall is a security system that acts as a barrier between your computer or network and the internet. 
+<br/>
+It monitors and controls incoming and outgoing network traffic based on security rules, helping to block hackers, viruses, and other threats while allowing good traffic through.
+
+## Simple Analogy
+
+A firewall is like a bouncer at a club:
+
+- The bouncer stands at the door checking everyone who wants to enter or exit
+- The bouncer has a list of rules about who can come in (like age requirements or dress code)
+- Some people are on the VIP list (trusted connections) and get in easily
+- Some people are on the banned list (known threats) and never get in
+- The bouncer checks IDs and makes decisions based on the rules
+- The club owner (you or your administrator) sets the rules
+
+## Types of Firewalls
+
+- **Packet-Filtering Firewalls**: Check basic information about each data packet
+- **Stateful Inspection Firewalls**: Remember the state of connections to make smarter decisions
+- **Proxy Firewalls**: Act as middlemen between your network and outside connections
+- **Next-Generation Firewalls (NGFW)**: Include advanced features like deep packet inspection
+- **Software Firewalls**: Run on individual computers
+- **Hardware Firewalls**: Physical devices that protect entire networks
+
+## What Firewalls Protect Against
+
+- **Unauthorized Access**: Keeping hackers out of your network
+- **Malware**: Blocking viruses, worms, and other malicious software
+- **Data Exfiltration**: Preventing sensitive data from leaving your network
+- **Denial of Service Attacks**: Protecting against attacks that try to overwhelm your systems
+
+## Example
+
+When you download a file from the internet, your firewall checks if the download is coming from a trusted source, if the file type is allowed, and if it matches known patterns of safe files. If anything seems suspicious, the firewall blocks the download and notifies you of the potential threat.
+
+## Code
+
+```bash
