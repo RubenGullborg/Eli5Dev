@@ -1,0 +1,51 @@
+---
+title: "Cache"
+description: "A high-speed data storage layer that stores a subset of data so future requests for that data can be served faster."
+question: "What temporary storage area speeds up data access by keeping frequently used information closer to where it's needed?"
+hint: "It's pronounced 'cash' and is used in browsers, CPUs, and databases to make things faster."
+analogy: "A cache is like a chef's prep station in a kitchen. Instead of going to the refrigerator and pantry (main memory or disk) every time an ingredient is needed, the chef keeps frequently used items (like chopped vegetables, mixed spices, or olive oil) right at their workstation. This makes cooking much faster because the most common ingredients are within arm's reach. Similarly, a computer cache keeps frequently accessed data in a small, fast storage area so the system doesn't have to fetch it from slower storage every time it's needed."
+tags: ["performance", "memory", "optimization", "hardware", "software"]
+datePublished: 2023-10-15
+---
+
+## What is a Cache?
+
+A cache is a special storage space that keeps copies of data that's frequently used or takes a long time to get. 
+<br/>
+By keeping this data in a faster, closer location, computers can work much more quickly when they need that information again.
+
+## Simple Analogy
+
+A cache is like a notepad you keep next to you while studying:
+
+- When you look up an important formula in your textbook, you write it on your notepad
+- The next time you need that formula, you check your notepad first
+- If it's there, you save time by not having to flip through the textbook again
+- If it's not there, you look it up in the textbook and add it to your notepad
+- Since your notepad is small, you might need to erase old notes to make space for new ones
+
+## Types of Caches
+
+- **Browser Cache**: Stores web pages, images, and files you've visited
+- **CPU Cache**: Ultra-fast memory built into the processor (L1, L2, L3 caches)
+- **RAM Cache**: Keeps copies of disk data in memory for faster access
+- **DNS Cache**: Remembers which domain names go with which IP addresses
+- **CDN Cache**: Stores copies of website content at locations around the world
+- **Application Cache**: Custom caching systems built into software
+
+## Key Cache Concepts
+
+- **Hit**: When requested data is found in the cache
+- **Miss**: When requested data isn't in the cache and must be fetched from the original source
+- **Eviction**: Removing items from the cache to make room for new items
+- **Cache Policy**: Rules that determine what gets cached and for how long
+- **Warm Cache**: A cache that already contains useful data
+- **Cold Cache**: An empty or newly started cache
+
+## Example
+
+When you visit a website like Wikipedia, your browser downloads all the images, CSS files, and JavaScript files. 
+<br/>
+If you click to another Wikipedia page, your browser doesn't need to download those files again - it can use the copies in its cache. This makes the second page load much faster than the first one.
+
+

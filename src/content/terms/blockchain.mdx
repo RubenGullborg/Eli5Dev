@@ -1,7 +1,7 @@
 ---
 title: "Blockchain"
-description: "A distributed, immutable database technology that ensures transparency and security through cryptography and decentralization."
-question: "What technology creates a secure, unchangeable record of transactions across multiple computers?"
+description: "A distributed, decentralized, public ledger immutable technology that ensures transparency and security through cryptography and decentralization."
+question: "What technology creates a secure, unchangeable record of transactions across multiple computers, instead of in one central place?"
 hint: "This technology is the foundation of cryptocurrencies like Bitcoin and creates a chain of data blocks that can't be altered without detection."
 analogy: "Think of blockchain like a class of students sharing notes. Everyone has an identical copy of the class notes. When someone adds new information, everyone updates their copy. If someone tries to change old information, everyone else can spot the difference because their copies don't match. This makes it nearly impossible to alter past entries without everyone noticing."
 tags: ["cryptocurrency", "distributed-systems", "security"]
@@ -18,17 +18,37 @@ Think of blockchain like a class of students sharing notes:
 <br/>
 - **Traditional System**: In a traditional system, only one student (the teacher) keeps the class notes. If they make a mistake or deliberately change something, no one else would know.
 <br/>
-- **Blockchain System**: Imagine instead that every student in the class has an identical copy of the class notes. <br/><br/>
-  When new information is added, everyone updates their copy and students regularly compare their notes to make sure they all match.
-  If someone tries to change old information, everyone else can easily spot the difference, so to successfully change old information, you would need to:
-  <br/><br/>
-     - Change your copy
-     - Convince more than half the class to accept your change
-     - Make sure no one notices the inconsistency
+- **Blockchain System**: Imagine instead that every student in the class has an identical copy of the class notes. 
+<br/>
+  When new information needs to be added:
+  1. - The information is collected into a "page" (block)
+  2. - Everyone in the class verifies the information is correct
+  3. - Once most students agree it's correct, everyone adds the page to their notebook
+  4. - Each new page includes a special code from the previous page, creating a chain
+  5. - Everyone's notebook should be identical at all times
+<br/>
+  If someone tries to change old information in their notebook:
+  - The special codes linking the pages would no longer match up
+  - Their notebook would be different from everyone else's
+  - The class would reject their altered version
+<br/>
+This makes blockchain very secure against tampering because a cheater would need to:
+- Change their own copy
+- Convince more than half the class to accept their changed version
+- Do this faster than new pages are being added
 <br/>
 This is practically impossible in a large class, making the blockchain extremely secure against tampering. Just as you can't change page 5 of everyone's class notes without them noticing, you can't alter a block in the blockchain without breaking the entire chain.
 
 ## Key Concepts
+
+
+- **Decentralization**: No single authority controls the blockchain
+
+- **Transparency**: Anyone can view the entire blockchain
+
+- **Cryptography**: Secure mathematical techniques protect the data
+
+- **Mining**: The process of validating transactions and adding new blocks (in some blockchains)
 
 - **Distributed Ledger**: Like having every student in class with an identical copy of the class notes, all synchronized to contain the same information.
 
@@ -43,3 +63,9 @@ This is practically impossible in a large class, making the blockchain extremely
 - **Immutability**: Once information is recorded in the notes, it cannot be changed without being detected by everyone else, just as you can't change an old page without everyone noticing the inconsistency.
 
 - **Public/Private Keys**: Like a special signature system where you can prove you wrote certain entries in the notes without revealing your identity.
+
+## Example
+
+When you send Bitcoin to someone, the transaction is broadcasted to the network.
+<br/>
+ Miners group your transaction with others into a block, solve a difficult math puzzle (proof of work), and add the block to the blockchain. Once added, your transaction is confirmed and visible to everyone, making it practically impossible to reverse or tamper with.

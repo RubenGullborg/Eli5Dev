@@ -1,35 +1,31 @@
 ---
 title: "REST API"
-description: "A way for different computer programs to talk to each other over the internet, like a waiter taking your order at a restaurant and bringing back your food."
-question: "A specific way that different computer programs can talk to each other over the internet?"
-hint: "This system lets programs request information from each other using simple commands like 'get this' or 'send that'."
+description: "Representational State Transfer API - a set of rules for building web services"
+question: "What type of API uses standard HTTP methods like GET and POST to interact with web services?"
+hint: "This architectural style is commonly used for web services and uses URLs to represent resources."
 analogy: "Think of a REST API like a restaurant. The menu (API documentation) lists all the available dishes (data) you can order. The waiter (API) takes your order and communicates with the kitchen. When you want something, you tell the waiter what you want (make a request). The waiter brings back what you asked for (the response). Just like a restaurant has standard ways of ordering (like saying 'I'd like the pasta, please'), REST APIs have standard ways of requesting information (like 'GET /users' to get a list of users)."
 tags: ["api", "web", "backend", "http"]
-datePublished: 2023-07-28
+datePublished: 2023-09-05
 ---
 
 ## What is REST API?
 
-A REST API is a way for different computer programs to talk to each other over the internet. It lets one program ask another program for information or send information, using simple commands like "get this" or "send that."
+A REST API is a way for computer programs to talk to each other over the internet using simple, standard methods. REST stands for "Representational State Transfer," which means it transfers representations (usually JSON or XML) of the state of resources (like users, products, or articles).
+<br/>
+It lets one program ask another program for information or send information, using simple commands like "get this" or "send that."
 
 ## Simple Analogy
 
-Think of a REST API like a restaurant:
+Think of a REST API like a library system:
 <br/>
-- **Menu (API Documentation)**: Lists all available dishes (data) you can order
+Each book has a unique address on a shelf (URL for a resource) and there are standard ways to interact with books:
 <br/>
-- **Waiter (API)**: Takes your order and communicates with the kitchen
+  - Checking the catalog (GET - retrieve information)
+  - Adding a new book to the collection (POST - create)
+  - Replacing or editing a damaged book with a new copy (PUT - update)
+  - Removing an outdated book (DELETE - remove)
 <br/>
-- **Order Form (Request)**: How you specify what you want
-  - Dish selection (URL/endpoint) - e.g., `/meals/pasta`
-  - Special instructions (parameters) - e.g., "extra cheese"
-  - Type of order (HTTP method):
-    - **Viewing the menu (GET)**: Just retrieving information without changing anything
-    - **Placing a new order (POST)**: Creating something new
-    - **Modifying your order (PUT/PATCH)**: Changing something that exists
-    - **Canceling your order (DELETE)**: Removing something
-<br/>
-- **Food delivery (Response)**: What comes back after your order is processed
+You don't need to know how the library organizes things internally, anyone who understands libraries can use any library, even in different cities
 
 ## Key Concepts
 
@@ -39,6 +35,7 @@ Think of a REST API like a restaurant:
   - POST: Create something new
   - PUT/PATCH: Update something
   - DELETE: Remove something
-- **Statelessness**: Each request contains all information needed to process it
+<br/>
+- **Stateless**: Each request contains all information needed, so the server don't have to remember previous requests
 - **Representation**: Resources can be shown in different formats (JSON, XML, etc.)
 - **Status Codes**: Standard responses indicating success or failure (200 OK, 404 Not Found, etc.)

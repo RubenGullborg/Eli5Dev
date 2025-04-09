@@ -1,0 +1,52 @@
+---
+title: "Node.js"
+description: "A JavaScript runtime environment that executes JavaScript code outside a web browser, allowing developers to use JavaScript for server-side scripting."
+question: "What technology allows JavaScript to run on a server instead of just in a browser?"
+hint: "Its logo is a green hexagon and it uses Chrome's V8 JavaScript engine."
+analogy: "Node.js is like giving a car (JavaScript) that was originally designed only for city streets (browsers) the ability to drive on all terrains (servers, desktops, microcontrollers). Before Node.js, JavaScript was mostly confined to web browsers, like a fish that could only swim in one pond. Node.js took the fish out of that pond and gave it the ability to swim in any body of water - servers, command lines, IoT devices, and more. It didn't change what the fish was (it's still JavaScript), but it dramatically expanded where it could go and what it could do."
+tags: ["javascript", "backend", "runtime", "server-side", "event-driven"]
+datePublished: 2023-11-20
+---
+
+## What is Node.js?
+
+Node.js is a platform that lets you run JavaScript code outside of web browsers.
+<br/>
+Before Node.js, JavaScript could only run inside browsers like Chrome or Firefox. Node.js takes the JavaScript engine from Chrome (called V8) and lets it run on your computer as a standalone application, which means you can use JavaScript to build all kinds of programs, including web servers.
+
+## Simple Analogy
+
+Think of programming languages like different types of workers:
+<br/>
+- **Before Node.js**: JavaScript was like an employee who could only work in one specific building (the browser). Very skilled at what they did there, but couldn't help anywhere else.
+<br/>
+- **After Node.js**: JavaScript became like an employee who could work anywhere in the company. The same person with the same skills can now work in different departments (browser, server, desktop apps, etc.), making it easier to share knowledge and resources across the organization.
+
+## How It Works
+
+Node.js uses an "event loop" to handle multiple operations without waiting:
+
+1. Client sends a request (like "get me this data from the database")
+2. Node.js receives the request and starts the operation
+3. Instead of waiting for the operation to finish, Node.js moves on to handle other requests
+4. When the operation completes, a callback function is triggered to handle the result
+5. This allows Node.js to handle thousands of connections with minimal resources
+
+## Common Uses
+
+- Web servers and APIs
+- Real-time applications (chat, gaming)
+- Command-line tools
+- Microservices
+- Streaming applications
+- Internet of Things (IoT) devices
+
+## Key Features
+
+- **JavaScript Everywhere**: Use the same language for frontend and backend
+- **Non-blocking I/O**: Can handle many connections simultaneously without waiting
+- **Event-Driven**: Responds to events as they happen rather than following a sequence
+- **NPM**: The world's largest software registry, with over a million packages
+- **Single-Threaded (but Asynchronous)**: Handles concurrent operations without multiple threads
+- **Cross-Platform**: Runs on Windows, macOS, Linux, and more
+

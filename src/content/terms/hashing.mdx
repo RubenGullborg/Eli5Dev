@@ -1,0 +1,56 @@
+---
+title: "Hashing"
+description: "A process that converts any input data into a fixed-size string of characters, which is typically a hexadecimal number."
+question: "What cryptographic technique transforms data of any size into a fixed-length string that can be used to verify data integrity?"
+hint: "It's commonly used for password storage, file verification, and data structures like hash tables."
+analogy: "Hashing is like making a unique fingerprint for data. Just as each person has a unique fingerprint that can identify them without revealing what they look like, a hash function creates a unique 'digital fingerprint' of any data without storing the original data itself. If even one tiny detail of the original data changes (like changing a single letter in a document), the fingerprint becomes completely different. This makes hashing perfect for verifying if data has been tampered with or for securely storing passwords - you can check if a fingerprint matches without ever having to store or see the original data."
+tags: ["security", "cryptography", "data-structures", "algorithms"]
+datePublished: 2023-11-30
+---
+
+## What is Hashing?
+
+Hashing is a process that takes any amount of data (like a password, file, or message) and creates a fixed-size string of characters that uniquely represents that data.
+
+<br />
+The output (called a hash or digest) looks like a random string of letters and numbers,
+but it's actually a digital fingerprint of the original data.
+
+## Simple Analogy
+
+Hashing is like a magic meat grinder for information:
+
+<br />
+- You can put anything into it - a single word, an entire book, or even a huge video
+file - No matter what you put in, what comes out is always the same size - You can't
+reconstruct the original input just by looking at what came out - If you change even
+the tiniest part of the input, what comes out looks completely different - If you
+put in the same input twice, you'll get exactly the same output both times
+<br />
+An input might look like "Password123" before hashing, and after hashing it would
+look like "59652de42af355d2de5cc604ea0546d1 eff4eddd10b242cf8cc19dec9be84f4b 050caff9c81c03a3227be125a9d88f75
+6cb052e048e1b028490129c313d419e0 cab9ad43013e78d0ea5d4666a3d7f8fc 62de84d48ba0dd91432616fbd7b1e446
+46e8d0743590fa3fd58fc58451e9380d 63f31eeeff41b581eb7639a21271912c 00dbfb9c2a4b9697d52fbb7e9f27197e
+ffeec9f7022c610ef5d2b1e9be49e19a"
+
+## Common Uses
+
+- **Password Storage**: Websites store hashes of passwords, not the passwords themselves
+- **Digital Signatures**: Verifying who created or sent a document
+- **Hash Tables**: Fast data lookup in programming
+- **Blockchain**: Creating chains of blocks in cryptocurrencies
+
+## Common Hashing Algorithms
+
+- **MD5**: Fast but no longer secure for cryptographic purposes
+- **SHA-256**: Widely used semi-secure hash algorithm
+- **bcrypt**: Specifically designed for password hashing
+- **Argon2**: Modern password hashing algorithm resistant to various attacks
+
+## Key Properties of Good Hash Functions
+
+- **Deterministic**: The same input always produces the same hash
+- **Quick to Compute**: Calculating the hash is fast
+- **Pre-image Resistant**: You can't work backwards from the hash to the original data
+- **Collision Resistant**: It's extremely difficult to find two different inputs that produce the same hash
+- **Avalanche Effect**: A small change in input causes a dramatic change in the output

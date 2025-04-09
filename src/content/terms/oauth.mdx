@@ -1,8 +1,8 @@
 ---
 title: "OAuth"
-description: "A way to let apps use your information on other websites without giving them your password, like giving a valet a special key that only opens your car."
-question: "A framework that lets an app use your information from another website without sharing your password."
-hint: "This security system lets you give apps limited access to your data, like giving a valet a key that only opens your car but not your house."
+description: "An open standard for access delegation, commonly used as a way for users to grant websites or applications access to their information on other websites without giving them passwords."
+question: "What protocol lets you log into websites using your Google or Facebook account without sharing your password?"
+hint: "It's a secure way to give one application limited access to your account on another service."
 analogy: "Think of OAuth like a hotel key card system. When you check into a hotel, you get a special key card that only opens your room. If you need the valet to park your car, you don't give them your room key. Instead, the hotel gives the valet a special valet key that only works for parking your car. This valet key can't open your room, only works for a limited time, and can be taken away without changing your room key. OAuth works the same way - it lets apps use your information from other websites (like Google or Facebook) without getting your actual password."
 tags: ["security", "authentication", "web", "api"]
 datePublished: 2023-08-03
@@ -10,20 +10,28 @@ datePublished: 2023-08-03
 
 ## What is OAuth?
 
-OAuth is a way to let apps use your information from other websites without giving them your password. Instead of sharing your username and password, OAuth lets you give apps limited access to just the information they need, for a limited time.
+OAuth is a way to let apps use your information from other websites without giving them your password. Instead of sharing your username and password, OAuth is what makes "Login with Google" or "Login with Facebook" buttons work, and it helps keep your accounts secure.
 
 ## Simple Analogy
 
 - **Think of OAuth like a hotel key card system:**:
-  1. You check into a hotel (the website like Google or Facebook)
-  2. The hotel verifies your identity once at check-in
-  3. You get a special key card (access token) that only opens specific doors
+  1. You check into a hotel (the website like Google or Facebook), the hotel verifies your identity once at check-in and then gives you a special key card (access token) that only opens specific doors.
+  <br/>
   4. When a valet (third-party app) needs to park your car, you don't give them your room key
   5. Instead, the hotel gives the valet a limited-use valet key (specific token) that:
      - Only works for a specific purpose (parking your car)
      - Only works for a limited time (expiration)
      - Doesn't give access to your room (limited scope)
      - Can be revoked without changing your main key
+
+## How OAuth Works
+
+1. **Request**: An app asks for permission to access some of your data on another service
+2. **Redirect**: You're sent to the service that has your data (like Google)
+3. **Authentication**: You log in to that service (if not already logged in)
+4. **Permission**: You see what the app is requesting and can approve or deny
+5. **Authorization**: If you approve, the service gives the app a special access token
+6. **Access**: The app uses this token to access only the specific data you approved
 
 ## Key Concepts
 
@@ -34,3 +42,12 @@ OAuth is a way to let apps use your information from other websites without givi
 - **Access Token**: The special key that lets the app use your data
 - **Scope**: What the app is allowed to do with your data
 - **Consent**: When you say "yes" to letting the app use your data
+
+## Example
+
+When you use a photo printing app that needs access to your Google Photos:
+1. The app redirects you to Google
+2. You log in to your Google account
+3. Google asks if you want to give the app access to your photos (but not your emails or documents)
+4. If you approve, Google gives the app a temporary access token
+5. The app uses this token to access just your photos
